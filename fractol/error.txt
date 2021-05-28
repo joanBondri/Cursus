@@ -1,0 +1,6 @@
+reminder :
+			-d or --display [width] [height]
+			-s or --set [M or J] <real part> <imaginary part>
+optional :
+			-l or --loop [time]
+retry, I'm sure its gonna be better

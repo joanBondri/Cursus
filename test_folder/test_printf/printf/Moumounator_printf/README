@@ -1,0 +1,29 @@
+How to use:
+
+1-			in main_all.c, change your .h path in the first include, to you ft_printf.h
+2-			./Moumounator_printf.sh <../path_to_your_printf> (cspduixX%) (012)
+				(sdiuxXp%) =	type to test
+								Default: ALL
+				(0,1,2) =	0 only display failed tests (Default)
+							1 will both display failed and succeed tests
+							2 same as 1 but detail for succeed tests
+				No flag will test all type, with modified display 1.
+
+			You MUST put a [0, 1, 2] flag, if you put a [sdiuxXp] flag.
+
+			Go check flag_by_type.txt to see which types are tested with which flags.
+			If you want to test all flags with all tests, change:
+			#define ALLTEST 0
+			to
+			#define ALLTEST 1
+
+BONUS:
+			You can use the flag '-bonus' to toggle on bonus. It's must be the first arg after your path.
+			You must have all green test of previous part. -bonus is a more advanced version.
+
+			./Moumounator_printf.sh <../path_to_your_printf> -bonus -new
+			Remove -new flag, to keep params of the last execute
+
+			-bonus are not protected. Random answer will result random behavior.
+
+
