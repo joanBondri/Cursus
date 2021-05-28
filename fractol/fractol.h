@@ -18,5 +18,8 @@ typedef struct	s_comp
 typedef struct	s_fractol
 {
 	int		set;
+	int		width;
+	int		height;
+	t_comp	base;
 }				t_fractol;
 #endif
