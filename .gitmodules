@@ -1,0 +1,3 @@
+[submodule "fractol/fractol/minilibx-linux"]
+	path = fractol/fractol/minilibx-linux
+	url = https://github.com/42Paris/minilibx-linux.git

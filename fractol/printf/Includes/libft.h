@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 14:04:18 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/26 14:04:20 by jbondri          ###   ########.fr       */
+/*   Created: 2020/11/18 16:50:37 by jbondri           #+#    #+#             */
+/*   Updated: 2020/11/21 12:11:33 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef	struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+double			ft_atod(char *str);
+char			*ft_loop_strchr(const char *str, char *c);
 int				ft_atoi(const char *str);
 void			ft_bzero(void *s, size_t n);
 void			*ft_calloc(size_t nitems, size_t size);
@@ -28,9 +30,10 @@ int				ft_isalpha(int c);
 int				ft_isascii(int c);
 int				ft_isdigit(int c);
 int				ft_isprint(int c);
+void			ft_lstadd_back(t_list **alst, t_list *new_lst);
 char			*ft_itoa(int n);
-void			ft_lstadd_back(t_list **alst, t_list *ew);
-void			ft_lstadd_front(t_list **alst, t_list *ew);
+int				get_next_line(int fd, char **line);
+void			ft_lstadd_front(t_list **alst, t_list *new_lst);
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstdelone(t_list *lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
@@ -53,8 +56,8 @@ char			**ft_split(char const *s, char c);
 char			*ft_strchr(const char *str, int c);
 char			*ft_strdup(const char *s);
 char			*ft_strjoin(char const *str1, char const *str2);
-size_t			strlcat(char *dst, const char *src, size_t size);
-size_t			strlcpy(char *destination, const char *source, size_t size);
+size_t			ft_strlcat(char *dst, const char *src, size_t size);
+size_t			ft_strlcpy(char *destination, const char *source, size_t size);
 int				ft_strlen(const char *str);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int				ft_strncmp(const char *str1, const char *str2, size_t n);

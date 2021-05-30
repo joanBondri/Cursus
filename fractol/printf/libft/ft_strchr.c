@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stddef.h>
+#include "libft.h"
 
 char	*ft_strchr(const char *str, int c)
 {
@@ -35,8 +36,11 @@ char *ft_loop_strchr(const char *str, char *c)
 	int		i;
 
 	i = -1;
-	res = NULL;
-	while (c[++i] && res == NULL)
+	while (c[++i])
+	{
 		res = ft_strchr(str, c[i]);
+		if (res == NULL)
+			break ;
+	}
 	return (res);
 }

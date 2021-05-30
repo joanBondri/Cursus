@@ -13,6 +13,7 @@ SRC_BON = 	ft_lstadd_back.c \
 			ft_lstsize.c \
 
 SRC =		ft_atoi.c \
+			ft_atod.c \
 			ft_bzero.c \
 			ft_calloc.c \
 			ft_isalnum.c \

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
 static double	decimal(char *dot_str)
 {
@@ -28,7 +28,20 @@ static double	decimal(char *dot_str)
 	return (decimal);
 }
 
-double			ft_atoi_f(char *str)
+
+static char			*afterset(char *source, char *set)
+{
+	int		i;
+
+	i = 0;
+	if (!source || !set)
+		return (NULL);
+	while (ft_strchr(set, source[i]) && source[i])
+		i++;
+	return (source + i);
+}
+
+double			ft_atod(char *str)
 {
 	double	res;
 	char	*dot_str;
@@ -49,45 +62,4 @@ double			ft_atoi_f(char *str)
 	if (dot_str[0] != '.')
 		return (sign * res);
 	return (sign * (res + decimal(dot_str)));
-}
-
-double			ft_atoi_f_secur(char *s)
-{
-	char	*str;
-
-	str = s;
-	if (*str == '-' || *str == '+')
-		str++;
-	str = afterset(str, "0123456789");
-	if (*str == '.')
-		str++;
-	str = afterset(str, "0123456789");
-	if (*str)
-		ft_exit("Error 22 : wrong number (double)", 22);
-	return (ft_atoi_f(s));
-}
-
-int				ft_atoi_i(char *s)
-{
-	char	*test;
-
-	test = s;
-	if (*test == '-' || *test == '+')
-		test++;
-	test = afterset(s, "0123456789");
-	if (*test)
-		ft_exit("Error 22 : wrong number (int)", 22);
-	return (ft_atoi(s));
-}
-
-char			*afterset(char *source, char *set)
-{
-	int		i;
-
-	i = 0;
-	if (!source || !set)
-		return (NULL);
-	while (ft_strchr(set, source[i]) && source[i])
-		i++;
-	return (source + i);
 }
