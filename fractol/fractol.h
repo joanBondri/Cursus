@@ -5,6 +5,7 @@
 # include <sys/stat.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <stdio.h>
 # include "printf/Includes/printf.h"
 # define MANDELBROT 1
 # define JULIA 2

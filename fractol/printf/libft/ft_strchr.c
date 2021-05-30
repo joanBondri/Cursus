@@ -28,3 +28,15 @@ char	*ft_strchr(const char *str, int c)
 		return (s + i);
 	return (NULL);
 }
+
+char *ft_loop_strchr(const char *str, char *c)
+{
+	char	*res;
+	int		i;
+
+	i = -1;
+	res = NULL;
+	while (c[++i] && res == NULL)
+		res = ft_strchr(str, c[i]);
+	return (res);
+}
