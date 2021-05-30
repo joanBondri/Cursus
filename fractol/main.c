@@ -7,6 +7,8 @@ int main(int argc, char **argv)
 	unique = (t_fractol){};
 	(void)argc;
 	parse(argv, &unique);
-	go_to_mlx(&unique, loop);
+	unique.scale = 2;
+	unique.center = (t_comp){.r = 0.0, .i = 0.0};
+	go_to_mlx(&unique);
 	return (0);
 }

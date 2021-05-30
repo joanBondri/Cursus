@@ -36,6 +36,8 @@ char *ft_loop_strchr(const char *str, char *c)
 	int		i;
 
 	i = -1;
+	if (!str || !c)
+		return (NULL);
 	while (c[++i])
 	{
 		res = ft_strchr(str, c[i]);

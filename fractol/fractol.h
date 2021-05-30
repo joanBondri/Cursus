@@ -26,6 +26,8 @@ typedef struct	s_fractol
 	int		height;
 	t_comp	base;
 	int		loop;
+	t_comp	center;
+	double	scale;
 }				t_fractol;
 
 typedef	struct		s_mlx
