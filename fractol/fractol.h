@@ -56,5 +56,6 @@ void	go_to_mlx(t_fractol *unique);
 void	parse(char **arv, t_fractol *unique);
 void	print_error_text(void);
 int		time_loop(int time, t_comp num, t_comp c);
+void	next_frame(t_store *s);
 
 #endif

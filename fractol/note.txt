@@ -1,0 +1,8 @@
+pt = (i - W/2) * (2 * scale)/W + imag * (H/2 - j) * (2 * scale)/W
+(i - W/2) * (2 * scale)/W = R = 2i*scale/W - scale
+I = H * scale / W - 2j * scale / W
+
+
+R = 2i * scale/W - scale + center.r
+I = (H - 2j) * scale/W + center.i
+

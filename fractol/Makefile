@@ -1,6 +1,7 @@
 SRC = 		algo_math.c \
 			main.c \
 			mlx_setup.c \
+			graphique.c \
 			parse.c \
 
 OBJS = $(SRC:.c=.o)

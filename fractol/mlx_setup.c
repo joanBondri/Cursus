@@ -15,30 +15,6 @@ void		resize(void *mlx, t_fractol *u)
 	return ;
 }
 
-void		my_mlx_pixel_put(t_img img, int x, int y, int color)
-{
-	char	*dst;
-
-	(void)color;
-	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
-void		next_frame(t_store *s)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	j = -1;
-	while (++i < s->frct.width)
-	{
-		j = -1;
-		while (++j < s->frct.height)
-			my_mlx_pixel_put(s->img, i, j, 50000);
-	}
-}
-
 int			minimalize(t_store *s)
 {
 	next_frame(s);
@@ -56,7 +32,6 @@ void		main_mlx(t_store *s)
 	mlx_expose_hook(s->mlx.mlx_win, minimalize, s);
 	mlx_loop(s->mlx.mlx);
 }
-
 
 void	go_to_mlx(t_fractol *unique)
 {
