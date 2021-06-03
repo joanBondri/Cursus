@@ -9,9 +9,19 @@
 # include <stdio.h>
 # include "printf/Includes/printf.h"
 # include <mlx.h>
+# include <limits.h>
+# define COLOR_MAX 16777215
+# define SHORT_MAX 65535
 # define BASIC_LOOP 500
 # define MANDELBROT 1
 # define JULIA 2
+
+typedef union	u_color
+{
+	int		result;
+	short	i;
+	char	c[2];
+}				t_color;
 
 typedef struct	s_comp
 {

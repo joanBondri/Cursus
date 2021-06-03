@@ -9,13 +9,27 @@ t_comp		find_dot_coo(int i, int j, t_fractol u)
 	return res;
 }
 
-int			get_color_with_score(int score, int loop)
+char		func_one(char c)
 {
-	float	res;
+	return ((c * 7 + 11) % 256);
+}
 
-	res = (loop - score) / loop;
-	res *= 16777215;
-	return (int)res;
+char		func_two(char c)
+{
+	return ((c * 45 - 56) % 256);
+}
+
+void	get_color_with_score(char *d, char *g, int time)
+{
+	char	swp;
+	swp = *d;
+	*d = *g;
+	if (time % 2 == 0)
+		*g = func_one(*g) ^ swp;
+	else
+		*g = func_two(*g) ^ swp;
+	if (--time != 0)
+		get_color_with_score(d, g, time);
 }
 
 void		my_mlx_pixel_put(t_img img, int x, int y, int color)
@@ -32,8 +46,8 @@ void		next_frame(t_store *s)
 	int		i;
 	int		j;
 	t_comp	coo;
-	int		result;
-	int		color;
+	t_color	result;
+	float	conv;
 
 	i = -1;
 	j = -1;
@@ -43,9 +57,12 @@ void		next_frame(t_store *s)
 		while (++j < s->frct.height)
 		{
 			coo = find_dot_coo(i, j, s->frct);
-			result = time_loop(s->frct.loop, s->frct.base, coo);
-			color = get_color_with_score(result, s->frct.loop);
-			my_mlx_pixel_put(s->img, i, j, color);
+			result.result = time_loop(s->frct.loop, s->frct.base, coo);
+			get_color_with_score(result.c, result.c + 1, 4);
+			conv = (float)result.result;
+			result.result = (int)(conv / SHORT_MAX * COLOR_MAX);
+			printf("result = %i\n", result.result);
+			my_mlx_pixel_put(s->img, i, j, result.result);
 		}
 	}
 }

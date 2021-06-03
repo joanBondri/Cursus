@@ -1,9 +1,9 @@
 #include <math.h>
 #include "fractol.h"
 
-double	norm(t_comp num)
+float	norm(t_comp num)
 {
-	return (sqrt(pow(num.r, 2) + pow(num.i, 2)));
+	return ((float)sqrt(pow(num.r, 2) + pow(num.i, 2)));
 }
 
 int		time_loop(int time, t_comp num, t_comp c)
