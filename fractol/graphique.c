@@ -11,12 +11,12 @@ t_comp		find_dot_coo(int i, int j, t_fractol u)
 
 char		func_one(char c)
 {
-	return ((c * 7 + 11) % 256);
+	return ((c * 7 + 42) % 256);
 }
 
 char		func_two(char c)
 {
-	return ((c * 45 - 56) % 256);
+	return ((c) % 256);
 }
 
 void	get_color_with_score(char *d, char *g, int time)
@@ -57,11 +57,13 @@ void		next_frame(t_store *s)
 		while (++j < s->frct.height)
 		{
 			coo = find_dot_coo(i, j, s->frct);
-			result.result = time_loop(s->frct.loop, s->frct.base, coo);
+			if (s->frct.set == JULIA)
+				result.result = time_loop_julia(s->frct.loop, coo, s->frct.base);
+			else if (s->frct.set == MANDELBROT)
+				result.result = time_loop(s->frct.loop, (t_comp){}, coo);
 			get_color_with_score(result.c, result.c + 1, 4);
 			conv = (float)result.result;
 			result.result = (int)(conv / SHORT_MAX * COLOR_MAX);
-			printf("result = %i\n", result.result);
 			my_mlx_pixel_put(s->img, i, j, result.result);
 		}
 	}

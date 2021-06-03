@@ -6,7 +6,7 @@ float	norm(t_comp num)
 	return ((float)sqrt(pow(num.r, 2) + pow(num.i, 2)));
 }
 
-int		time_loop(int time, t_comp num, t_comp c)
+/*int		time_loop(int time, t_comp num, t_comp c)
 {
 	t_comp	new;
 
@@ -15,4 +15,36 @@ int		time_loop(int time, t_comp num, t_comp c)
     new.r = pow(num.r, 2) - pow(num.i, 2) + c.r;
 	new.i = 2 * num.r * num.i + c.i;
 	return (time_loop(time - 1, new, c));
+}*/
+
+int			time_loop(int time, t_comp num, t_comp c)
+{
+	t_comp		new;
+
+	time++;
+	while (--time > 0 && norm(num) < 10)
+	{
+    	new.r = pow(num.r, 2) - pow(num.i, 2) + c.r;
+		new.i = 2 * num.r * num.i + c.i;
+	 	num = new;
+	}
+	return (time);
+}
+
+int			time_loop_julia(int time, t_comp num, t_comp c)
+{
+	t_comp		new;
+	double		smooth;
+
+	time++;
+	smooth = exp(-1 * norm(new));
+	while (--time > 0 && norm(num) < 10)
+	{
+    	new.r = pow(num.r, 2) - pow(num.i, 2) + c.r;
+		new.i = 2 * num.r * num.i + c.i;
+	 	num = new;
+		smooth += exp(-1 * norm(new));
+	}
+
+	return (time);
 }

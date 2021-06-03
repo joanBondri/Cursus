@@ -22,10 +22,10 @@ t_comp		get_base_num(char ***arv)
 {
 	t_comp		res;
 
-	if (++(*arv) && !ft_loop_strchr("0123456789.", **arv))
+	if (++(*arv) && !ft_loop_strchr("0123456789.+-", **arv))
 		print_error_text();
 	res.r = ft_atod(**arv);
-	if (++(*arv) && !ft_loop_strchr("0123456789.", **arv))
+	if (++(*arv) && !ft_loop_strchr("0123456789.+-", **arv))
 		print_error_text();
 	res.i = ft_atod(**arv);
 	return (res);
