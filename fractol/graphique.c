@@ -47,7 +47,6 @@ void		next_frame(t_store *s)
 	int		j;
 	t_comp	coo;
 	t_color	result;
-	float	conv;
 
 	i = -1;
 	j = -1;
@@ -64,10 +63,7 @@ void		next_frame(t_store *s)
 				continue ;
 			}
 			else if (s->frct.set == MANDELBROT)
-				result.result = time_loop(s->frct.loop, (t_comp){}, coo);
-			get_color_with_score(result.c, result.c + 1, 4);
-			conv = (float)result.result;
-			result.result = (int)(conv / SHORT_MAX * COLOR_MAX);
+				result.result = time_loop_julia(s->frct.loop, (t_comp){}, coo);
 			my_mlx_pixel_put(s->img, i, j, result.result);
 		}
 	}

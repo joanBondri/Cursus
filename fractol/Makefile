@@ -3,6 +3,7 @@ SRC = 		algo_math.c \
 			mlx_setup.c \
 			graphique.c \
 			parse.c \
+			event.c \
 			hsv.c \
 
 OBJS = $(SRC:.c=.o)

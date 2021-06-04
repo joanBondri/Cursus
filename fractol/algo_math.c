@@ -44,5 +44,7 @@ int			time_loop_julia(int time, t_comp num, t_comp c)
 	 	num = new;
 		smooth += exp(-1 * norm(new));
 	}
+	if (norm(num) < 2)
+		return (0);
 	return (hsv_to_hex(smooth, 0.9, 0.8));
 }
