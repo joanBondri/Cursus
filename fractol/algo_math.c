@@ -1,4 +1,3 @@
-#include <math.h>
 #include "fractol.h"
 
 float	norm(t_comp num)
@@ -37,7 +36,7 @@ int			time_loop_julia(int time, t_comp num, t_comp c)
 	double		smooth;
 
 	time++;
-	smooth = exp(-1 * norm(new));
+	smooth = exp(-1 * norm(num));
 	while (--time > 0 && norm(num) < 10)
 	{
     	new.r = pow(num.r, 2) - pow(num.i, 2) + c.r;
@@ -45,6 +44,5 @@ int			time_loop_julia(int time, t_comp num, t_comp c)
 	 	num = new;
 		smooth += exp(-1 * norm(new));
 	}
-
-	return (time);
+	return (hsv_to_hex(smooth, 0.9, 0.8));
 }
