@@ -22,6 +22,7 @@ typedef	struct	s_list
 }				t_list;
 
 double			ft_atod(char *str);
+double			ft_sqrt(double number);
 char			*ft_loop_strchr(const char *str, char *c);
 int				ft_atoi(const char *str);
 void			ft_bzero(void *s, size_t n);

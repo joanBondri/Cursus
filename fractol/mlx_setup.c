@@ -18,8 +18,6 @@ void		resize(void *mlx, t_fractol *u)
 int			minimalize(t_store *s)
 {
 	next_frame(s);
-	mlx_put_image_to_window(s->mlx.mlx,
-			s->mlx.mlx_win, s->img.img, 0, 0);
 	return (0);
 }
 
@@ -29,7 +27,7 @@ void		main_mlx(t_store *s)
 	//mlx_mouse_hook(s->mlx.mlx_win, clic_image, s);
 //	mlx_key_hook(s->mlx.mlx_win, move_sth, s);
 //	mlx_hook(s->mlx.mlx_win, 33, 1L << 17, windows_key, s);
-	mlx_hook(s->mlx.mlx_win, 4, 0L, &mouse_event, s);
+	mlx_hook(s->mlx.mlx_win, 4, 1<<2, &mouse_event, s);
 	mlx_expose_hook(s->mlx.mlx_win, minimalize, s);
 	mlx_loop(s->mlx.mlx);
 }

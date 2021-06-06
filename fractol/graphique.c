@@ -43,28 +43,29 @@ void		my_mlx_pixel_put(t_img img, int x, int y, int color)
 
 void		next_frame(t_store *s)
 {
-	int		i;
-	int		j;
-	t_comp	coo;
-	t_color	result;
+	int			i;
+	int			j;
+	t_comp		coo;
+	t_color		result;
+	t_fractol	u;
 
 	i = -1;
 	j = -1;
-	while (++i < s->frct.width)
+	u = s->frct;
+	while (++i < u.width)
 	{
 		j = -1;
-		while (++j < s->frct.height)
+		while (++j < u.height)
 		{
-			coo = find_dot_coo(i, j, s->frct);
-			if (s->frct.set == JULIA)
-			{
-				result.result = time_loop_julia(s->frct.loop, coo, s->frct.base);
-				my_mlx_pixel_put(s->img, i, j, result.result);
-				continue ;
-			}
-			else if (s->frct.set == MANDELBROT)
-				result.result = time_loop_julia(s->frct.loop, (t_comp){}, coo);
+			coo.r = 2 * i * u.scale / u.width - u.scale + u.center.r;
+			coo.i = (u.height - 2 * j) * u.scale / u.width + u.center.i;
+			if (u.set == JULIA)
+				result.result = time_loop_julia(u.loop, coo, u.base);
+			else if (u.set == MANDELBROT)
+				result.result = time_loop_julia(u.loop, (t_comp){}, coo);
 			my_mlx_pixel_put(s->img, i, j, result.result);
 		}
 	}
+	mlx_put_image_to_window(s->mlx.mlx,
+		s->mlx.mlx_win, s->img.img, 0, 0);
 }

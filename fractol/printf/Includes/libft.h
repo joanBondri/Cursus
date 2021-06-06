@@ -21,6 +21,7 @@ typedef	struct	s_list
 }				t_list;
 
 double			ft_atod(char *str);
+double			ft_sqrt(double number);
 char			*ft_loop_strchr(const char *str, char *c);
 int				ft_atoi(const char *str);
 void			ft_bzero(void *s, size_t n);
@@ -67,4 +68,9 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
+int				is_n(char c);
+char			*create_newline(char ***line, char *x);
+int				assign(char ***line, char *x);
+int				recurs(int fd, char **line);
+int				get_next_line(int fd, char **line);
 #endif

@@ -1,8 +1,7 @@
 OBJS = $(SRC:.c=.o)
 
-OBJS_BON = $(SRC_BON:.c=.o)
 
-SRC_BON = 	ft_lstadd_back.c \
+SRC = 	ft_lstadd_back.c \
 			ft_lstadd_front.c \
 			ft_lstclear.c \
 			ft_lstdelone.c \
@@ -11,8 +10,7 @@ SRC_BON = 	ft_lstadd_back.c \
 			ft_lstmap.c \
 			ft_lstnew.c \
 			ft_lstsize.c \
-
-SRC =		ft_atoi.c \
+			ft_atoi.c \
 			ft_atod.c \
 			ft_bzero.c \
 			ft_calloc.c \
@@ -46,9 +44,11 @@ SRC =		ft_atoi.c \
 			ft_strtrim.c \
 			ft_substr.c \
 			ft_tolower.c \
+			ft_sqrt.c \
 			get_next_line.c \
 			get_next_line_utils.c \
 			ft_toupper.c \
+
 
 NAME = libft.a
 
@@ -67,12 +67,8 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
-bonus: $(OBJS) $(OBJS_BON)
-	ar rc $(NAME) $(OBJS) $(OBJS_BON)
-
 clean:
 	$(RM) $(OBJS)
-	$(RM) $(OBJS_BON)
 
 fclean: clean
 	$(RM) $(NAME)

@@ -15,6 +15,8 @@
 # define BASIC_LOOP 500
 # define MANDELBROT 1
 # define JULIA 2
+# define KEY_ZOOM 5
+# define KEY_UNZOOM 4
 
 typedef union	u_color
 {
@@ -71,5 +73,6 @@ float	norm(t_comp num);
 int		hsv_to_hex(double h, float s, float v);
 int		time_loop_julia(int time, t_comp num, t_comp c);
 int 	mouse_event(int button, int x, int y, t_store *s);
+t_comp	find_dot_coo(int i, int j, t_fractol u);
 
 #endif
