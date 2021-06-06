@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-int		hsv_to_hex(double h, float s, float v)
+int	hsv_to_hex(double h, float s, float v)
 {
 	float	ix;
 	float	em;

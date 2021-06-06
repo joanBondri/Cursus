@@ -18,20 +18,20 @@
 # define KEY_ZOOM 5
 # define KEY_UNZOOM 4
 
-typedef union	u_color
+typedef union u_color
 {
 	int		result;
 	short	i;
 	char	c[2];
 }				t_color;
 
-typedef struct	s_comp
+typedef struct s_comp
 {
 	double	r;
 	double	i;
 }				t_comp;
 
-typedef struct	s_fractol
+typedef struct s_fractol
 {
 	int		set;
 	int		width;
@@ -42,13 +42,13 @@ typedef struct	s_fractol
 	double	scale;
 }				t_fractol;
 
-typedef	struct		s_mlx
+typedef struct s_mlx
 {
 	void			*mlx;
 	void			*mlx_win;
 }					t_mlx;
 
-typedef	struct		s_img
+typedef struct s_img
 {
 	void			*img;
 	char			*addr;
@@ -57,7 +57,7 @@ typedef	struct		s_img
 	int				endian;
 }					t_img;
 
-typedef	struct		s_store
+typedef struct s_store
 {
 	t_mlx			mlx;
 	t_img			img;
@@ -72,7 +72,7 @@ void	next_frame(t_store *s);
 float	norm(t_comp num);
 int		hsv_to_hex(double h, float s, float v);
 int		time_loop_julia(int time, t_comp num, t_comp c);
-int 	mouse_event(int button, int x, int y, t_store *s);
+int		mouse_event(int button, int x, int y, t_store *s);
 t_comp	find_dot_coo(int i, int j, t_fractol u);
 
 #endif
