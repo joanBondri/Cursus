@@ -37,7 +37,7 @@ int			time_loop_julia(int time, t_comp num, t_comp c)
 
 	time++;
 	smooth = exp(-1 * sqrt(num.r * num.r + num.i * num.i));
-	while (--time > 0 && sqrt(num.r * num.r + num.i * num.i) < 10)
+	while (--time > 0 && sqrt(num.r * num.r + num.i * num.i) < 100000000)
 	{
     	new.r = num.r * num.r - num.i * num.i + c.r;
 		new.i = 2 * num.r * num.i + c.i;
