@@ -1,11 +1,13 @@
 #include "minitalk.h"
 
-void	print_char(bool signal)
+void	print_char_yop(bool signal)
 {
-	static int	c = 0;
+	static char	c = 0;
 	static int	position = 128;
 
-	c += position * signal;
+	if (signal)
+		c+= position;
+	printf("%d\n", position);
 	position /= 2;
 	if (!position)
 	{
@@ -15,18 +17,16 @@ void	print_char(bool signal)
 	}
 }
 
-int	signal_two(int delay)
+void	signal_two(int delay)
 {
-	print_char(false);
+	print_char_yop(true);
 	(void)delay;
-	return (0);
 }
 
-int	signal_one(int delay)
+void	signal_one(int delay)
 {
-	print_char(true);
+	print_char_yop(false);
 	(void)delay;
-	return (0);
 }
 
 int	main(int ac, char **av)

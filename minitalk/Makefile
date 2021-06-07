@@ -8,25 +8,28 @@ OBJS_SE = $(SRC_SE:.c=.o)
 
 NAME_CL = client
 
+LIB_NAME = ./libft/libft.a
+
 NAME_SE = server
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I ./include/ -I ./libft/ -L./libft/ -lft
+CFLAGS = -Wall -Wextra -Werror -I ./libft/ -I ./include/
 RM = rm -rf
 
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
-all: $(NAME_SE) $(NAME_CL) libft_cmd
+all: $(NAME_SE) $(NAME_CL)
 
-$(NAME_CL): $(OBJS_CL) libft_cmd
-	$(CC) -o $(NAME_CL) $(OBJS_CL)
-
-$(NAME_SE): $(OBJS_SE) libft_cmd
-	$(CC) -o $(NAME_SE) $(OBJS_SE)
 libft_cmd:
 	make -C libft
+
+$(NAME_CL): libft_cmd $(OBJS_CL)
+	$(CC) -o $(NAME_CL) $(OBJS_CL) $(LIB_NAME)
+
+$(NAME_SE): libft_cmd $(OBJS_SE)
+	$(CC) -o $(NAME_SE) $(OBJS_SE) $(LIB_NAME)
 
 
 clean:

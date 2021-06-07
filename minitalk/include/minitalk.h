@@ -6,6 +6,7 @@
 # include <string.h>
 # include <stdbool.h>
 # include <signal.h>
+# include <stdlib.h>
 # include "libft.h"
 
 #endif
