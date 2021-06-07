@@ -14,6 +14,7 @@ void	push_char(char c, int pid)
 		}
 		else
 			kill(pid, SIGUSR2);
+		usleep(60);
 		position /= 2;
 	}
 }
@@ -24,23 +25,22 @@ int	main(int argc, char **argv)
 	int		pid;
 	int		i;
 
-	if (argc == 1)
+	if (argc < 3)
 	{
-		printf("\033[31mERROR\033[m : PID missing\n");
+		printf("\033[31mERROR\033[m : Too few arguments\n");
+		return (1);
+	}
+	if (argc > 3)
+	{
+		printf("\033[31mERROR\033[m : Too many arguments\n");
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
-	s = NULL;
-	while (get_next_line(0, &s) > -1)
-	{
-		i = -1;
-		while (s[++i])
-			push_char(s[i], pid);
-		push_char('\n', pid);
-		free(s);
-		s = NULL;
-	}
-
+	s = argv[2];
+	i = -1;
+	while (s[++i])
+		push_char(s[i], pid);
+	push_char('\n', pid);
 	(void)argc;
 	return (0);
 }

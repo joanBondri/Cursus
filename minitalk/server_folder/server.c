@@ -7,7 +7,6 @@ void	print_char_yop(bool signal)
 
 	if (signal)
 		c+= position;
-	printf("%d\n", position);
 	position /= 2;
 	if (!position)
 	{
@@ -17,13 +16,13 @@ void	print_char_yop(bool signal)
 	}
 }
 
-void	signal_two(int delay)
+void	signal_one(int delay)
 {
 	print_char_yop(true);
 	(void)delay;
 }
 
-void	signal_one(int delay)
+void	signal_two(int delay)
 {
 	print_char_yop(false);
 	(void)delay;
