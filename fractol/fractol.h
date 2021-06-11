@@ -7,7 +7,6 @@
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
-# include "printf/Includes/printf.h"
 # include <mlx.h>
 # include <limits.h>
 # define COLOR_MAX 16777215

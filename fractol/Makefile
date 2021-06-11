@@ -13,29 +13,28 @@ NAME = fractol
 CC = clang
 
 CFLAGS = -Wall -Wextra -Werror -I./
-CFLAGS2 = -I./minilibx-linux -I/usr/include -I ./ -L./ -lftprintf -lXext -lX11 -lbsd -L./minilibx-linux -lm -lmlx
+CFLAGS2 = -I./minilibx -I/usr/include -I ./ -lXext -lX11 -lbsd -L./minilibx -lm -lmlx ./libft/libft.a
 RM = rm -rf
 
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 $(NAME): $(OBJS)
-	make -C minilibx-linux
-	make -C printf
-	mv printf/libftprintf.a ./libftprintf.a
+	make -C minilibx
+	make -C libft
 	$(CC) -o $(NAME) $(OBJS) $(CFLAGS2)
 
 all: $(NAME)
 
 clean:
-	$(RM) libftprintf.a
+	$(RM) libft.a
 	$(RM) $(OBJS)
-	make -C minilibx-linux -f Makefile clean
-	make -C printf -f Makefile clean
+	make -C minilibx -f Makefile clean
+	make -C libft -f Makefile clean
 
 fclean: clean
 	$(RM) $(NAME)
-	make -C printf -f Makefile fclean
+	make -C libft -f Makefile fclean
 
 re: fclean all
 
