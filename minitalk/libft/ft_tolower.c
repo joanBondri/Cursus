@@ -6,11 +6,11 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:42:35 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:42:37 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:23:45 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_tolower(int c)
+int	ft_tolower(int c)
 {
 	if (c >= 65 && c <= 90)
 		return (c + 32);

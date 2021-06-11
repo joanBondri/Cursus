@@ -6,11 +6,11 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:42:49 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:42:51 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:23:58 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_toupper(int c)
+int	ft_toupper(int c)
 {
 	if (c >= 97 && c <= 122)
 		return (c - 32);

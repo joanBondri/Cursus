@@ -6,7 +6,7 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:37:31 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/19 15:07:18 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:10:57 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t		len_cpy;
-	size_t		padding;
-	char		*cdest;
-	char		*csrc;
+	size_t	len_cpy;
+	size_t	padding;
+	char	*cdest;
+	char	*csrc;
 
 	cdest = dst;
 	csrc = (char *)src;

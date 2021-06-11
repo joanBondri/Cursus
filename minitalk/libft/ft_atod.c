@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:44:31 by jbondri           #+#    #+#             */
-/*   Updated: 2021/02/11 20:23:21 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 10:46:26 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static double	decimal(char *dot_str)
 	return (decimal);
 }
 
-
-static char			*afterset(char *source, char *set)
+static char	*afterset(char *source, char *set)
 {
 	int		i;
 
@@ -41,7 +40,7 @@ static char			*afterset(char *source, char *set)
 	return (source + i);
 }
 
-double			ft_atod(char *str)
+double	ft_atod(char *str)
 {
 	double	res;
 	char	*dot_str;

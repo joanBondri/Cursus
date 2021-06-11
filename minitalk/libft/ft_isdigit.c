@@ -6,11 +6,11 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:22:50 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/19 09:23:15 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 10:52:40 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);

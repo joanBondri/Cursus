@@ -25,10 +25,12 @@ all: $(NAME_SE) $(NAME_CL)
 libft_cmd:
 	make -C libft
 
-$(NAME_CL): libft_cmd $(OBJS_CL)
+$(NAME_CL): $(OBJS_CL)
+	make -C libft
 	$(CC) -o $(NAME_CL) $(OBJS_CL) $(LIB_NAME)
 
-$(NAME_SE): libft_cmd $(OBJS_SE)
+$(NAME_SE): $(OBJS_SE)
+	make -C libft
 	$(CC) -o $(NAME_SE) $(OBJS_SE) $(LIB_NAME)
 
 

@@ -6,7 +6,7 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:52:59 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:53:03 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:10:13 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	strl(char *s)
 	return (i);
 }
 
-char		*ft_strjoin(char const *str1, char const *str2)
+char	*ft_strjoin(char const *str1, char const *str2)
 {
 	long	i;
 	char	*s1;
@@ -33,7 +33,8 @@ char		*ft_strjoin(char const *str1, char const *str2)
 	s2 = (char *)str2;
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	if (!(res = malloc(sizeof(char) * (strl(s1) + strl(s2) + 1))))
+	res = malloc(sizeof(char) * (strl(s1) + strl(s2) + 1));
+	if (!(res))
 		return (NULL);
 	i = -1;
 	while (++i < strl(s1))

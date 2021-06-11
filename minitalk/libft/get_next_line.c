@@ -1,17 +1,6 @@
 #include "get_next_line.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#define BUFFER_SIZE 100
-#define OK 1
-#define ERROR -1
-#define END 0
-#define ALL_LINE -1
 
-char		*create_newline(char ***line, char *x)
+char	*create_newline(char ***line, char *x)
 {
 	int		i;
 	int		y;
@@ -23,7 +12,8 @@ char		*create_newline(char ***line, char *x)
 	y = 0;
 	while ((**line)[y])
 		y++;
-	if (!(new_line = malloc(sizeof(char) * (y + 1))))
+	new_line = malloc(sizeof(char) * (y + 1));
+	if (!(new_line))
 		return (NULL);
 	y = -1;
 	while ((**line)[++y])
@@ -32,13 +22,14 @@ char		*create_newline(char ***line, char *x)
 	return (new_line);
 }
 
-int		assign(char ***line, char *x)
+int	assign(char ***line, char *x)
 {
 	int		i;
 	int		y;
 	char	*new_line;
 
-	if (!(new_line = create_newline(line, x)))
+	new_line = create_newline(line, x);
+	if (!(new_line))
 		return (ERROR);
 	i = 0;
 	while (x[i] && !is_n(x[i]))
@@ -47,24 +38,16 @@ int		assign(char ***line, char *x)
 	while ((**line)[y])
 		y++;
 	free(**line);
-	if (!(**line = malloc(sizeof(char) * (y + i + 1))))
+	**line = malloc(sizeof(char) * (y + i + 1));
+	if (!(**line))
 		return (ERROR);
-	y = -1;
-	while (new_line[++y])
-		(**line)[y] = new_line[y];
-	free(new_line);
-	i = -1;
-	while (x[++i] && !is_n(x[i]))
-		(**line)[y + i] = x[i];
-	(**line)[y + i] = '\0';
-	return (is_n(x[i]) ? (i + 1) : 0);
+	return (assign_new_line(line, x, new_line));
 }
 
-int		recurs(int fd, char **line)
+int	recurs(int fd, char **line)
 {
 	static char		x[BUFFER_SIZE + 1] = "";
 	int				res;
-	int				i;
 
 	res = assign(&line, (char *)&(x));
 	if (res == 0)
@@ -82,23 +65,18 @@ int		recurs(int fd, char **line)
 		return (recurs(fd, line));
 	}
 	else
-	{
-		i = -1;
-		while (++i < BUFFER_SIZE + 1 - res)
-			x[i] = x[i + res];
-		while (++i < BUFFER_SIZE + 1)
-			x[i] = '\0';
-	}
+		decaler(res, (char *)&x);
 	return (OK);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	int			res;
+	int	res;
 
 	if (fd < 0 || fd > 180 || !line || BUFFER_SIZE < 1)
 		return (ERROR);
-	if (!(*line = malloc(sizeof(char) * (1))))
+	*line = malloc(sizeof(char) * (1));
+	if (!(*line))
 		return (ERROR);
 	*line[0] = '\0';
 	res = recurs(fd, line);

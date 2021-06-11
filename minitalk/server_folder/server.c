@@ -6,7 +6,7 @@ void	print_char_yop(bool signal)
 	static int	position = 128;
 
 	if (signal)
-		c+= position;
+		c += position;
 	position /= 2;
 	if (!position)
 	{

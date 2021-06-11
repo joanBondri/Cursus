@@ -6,7 +6,7 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:36:20 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:36:22 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:08:39 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-char *ft_loop_strchr(const char *str, char *c)
+char	*ft_loop_strchr(const char *str, char *c)
 {
 	char	*res;
 	int		i;

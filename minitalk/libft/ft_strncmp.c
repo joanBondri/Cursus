@@ -6,13 +6,13 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:39:50 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:39:55 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:13:21 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-int		ft_strncmp(const char *str1, const char *str2, size_t n)
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
 	unsigned int	i;
 

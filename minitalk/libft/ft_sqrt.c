@@ -1,8 +1,8 @@
 #include "libft.h"
 
-double		ft_sqrt(double number)
+double	ft_sqrt(double number)
 {
-	double res;
+	double	res;
 	double	buff;
 
 	res = number / 2;
@@ -12,5 +12,5 @@ double		ft_sqrt(double number)
 		buff = res;
 		res = (number / buff + buff) / 2;
 	}
-	return res;
+	return (res);
 }

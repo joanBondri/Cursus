@@ -6,28 +6,28 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:16:44 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:43:53 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 10:48:00 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		is_white_space(char c)
+static int	is_white_space(char c)
 {
-	if (c == '\n' || c == '\t' || c == '\v' ||
-			c == '\r' || c == '\f' || c == ' ')
+	if (c == '\n' || c == '\t' || c == '\v'
+		|| c == '\r' || c == '\f' || c == ' ')
 		return (1);
 	return (0);
 }
 
-int				ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int		i;
 	int		res;
 	int		sign;
 	char	*s;
 
-	s = (char*)str;
+	s = (char *)str;
 	res = 0;
 	i = 0;
 	sign = 1;
