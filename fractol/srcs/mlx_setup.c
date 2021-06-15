@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-void		resize(void *mlx, t_fractol *u)
+void	resize(void *mlx, t_fractol *u)
 {
 	int		x;
 	int		y;
@@ -15,13 +15,13 @@ void		resize(void *mlx, t_fractol *u)
 	return ;
 }
 
-int			minimalize(t_store *s)
+int	minimalize(t_store *s)
 {
 	next_frame(s);
 	return (0);
 }
 
-int			windows_key(t_store *s)
+int	windows_key(t_store *s)
 {
 	mlx_destroy_image(s->mlx.mlx, s->img.img);
 	mlx_destroy_window(s->mlx.mlx, s->mlx.mlx_win);
@@ -29,11 +29,10 @@ int			windows_key(t_store *s)
 	return (0);
 }
 
-
-void		main_mlx(t_store *s)
+void	main_mlx(t_store *s)
 {
 	mlx_put_image_to_window(s->mlx.mlx, s->mlx.mlx_win, s->img.img, 0, 0);
-	mlx_hook(s->mlx.mlx_win, 4, 1<<2, &mouse_event, s);
+	mlx_hook(s->mlx.mlx_win, 4, 1 << 2, &mouse_event, s);
 	mlx_expose_hook(s->mlx.mlx_win, minimalize, s);
 	mlx_hook(s->mlx.mlx_win, 33, 1L << 17, windows_key, s);
 	mlx_loop(s->mlx.mlx);
@@ -47,7 +46,8 @@ void	go_to_mlx(t_fractol *unique)
 
 	mlx.mlx = mlx_init();
 	resize(mlx.mlx, unique);
-	mlx.mlx_win = mlx_new_window(mlx.mlx, unique->width, unique->height, "Fractol");
+	mlx.mlx_win = mlx_new_window(mlx.mlx, unique->width,
+			unique->height, "Fractol");
 	img.img = mlx_new_image(mlx.mlx, unique->width, unique->height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);

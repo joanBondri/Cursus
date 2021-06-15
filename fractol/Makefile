@@ -3,6 +3,7 @@ SRC = 		srcs/algo_math.c \
 			srcs/mlx_setup.c \
 			srcs/graphique.c \
 			srcs/parse.c \
+			srcs/error.c \
 			srcs/event.c \
 			srcs/hsv.c \
 
@@ -36,6 +37,6 @@ fclean: clean
 	$(RM) $(NAME)
 	make -C libft -f Makefile fclean
 
-re: fclean all
+re: fclean $(NAME)
 
 .PHONY: all clean fclean re
