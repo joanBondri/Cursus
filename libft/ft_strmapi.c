@@ -6,7 +6,7 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:39:31 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:39:33 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:13:00 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 
 	if (s == NULL || f == NULL)
 		return (NULL);
-	if (!(res = malloc(sizeof(char) * (ft_strlen(s) + 1))))
+	res = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!(res))
 		return (NULL);
 	i = -1;
 	while (++i < ft_strlen(s))

@@ -6,7 +6,7 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:36:02 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:36:05 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:07:32 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static char	**first_alloc(char *s, unsigned char c)
 			i++;
 		count++;
 	}
-	if (!(tab = malloc(sizeof(char *) * (count + 1))))
+	tab = malloc(sizeof(char *) * (count + 1));
+	if (!tab)
 		return (NULL);
 	tab[count] = NULL;
 	return (tab);
@@ -57,7 +58,8 @@ static char	**second_alloc(char **tab, char *s, unsigned char c)
 			i++;
 			count++;
 		}
-		if (!(tab[++j] = malloc(sizeof(char) * (count + 1))))
+		tab[++j] = malloc(sizeof(char) * (count + 1));
+		if (!tab[j])
 			return (NULL);
 	}
 	return (tab);
@@ -86,7 +88,7 @@ static char	**fill_tab(char **tab, char *s, unsigned char c)
 	return (tab);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	*str;
 	char	**tab;
@@ -94,7 +96,8 @@ char		**ft_split(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	str = (char *)s;
-	if (!(tab = first_alloc(str, (unsigned char)c)))
+	tab = first_alloc(str, (unsigned char)c);
+	if (!(tab))
 		return (NULL);
 	if (!(second_alloc(tab, str, (unsigned char)c)))
 		return (NULL);

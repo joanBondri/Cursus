@@ -6,7 +6,7 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:31:34 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:31:38 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:03:36 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_memset(void *str, int c, size_t n)
 	char	*s_buff;
 	char	*char_str;
 
-	char_str = (char*)str;
+	char_str = (char *)str;
 	s_buff = char_str;
 	while (s_buff < char_str + n)
 	{

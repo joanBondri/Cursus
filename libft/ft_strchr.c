@@ -6,11 +6,12 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:36:20 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:36:22 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:08:39 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
+#include "libft.h"
 
 char	*ft_strchr(const char *str, int c)
 {
@@ -27,4 +28,21 @@ char	*ft_strchr(const char *str, int c)
 	if (c == 0 && s[i] == '\0')
 		return (s + i);
 	return (NULL);
+}
+
+char	*ft_loop_strchr(const char *str, char *c)
+{
+	char	*res;
+	int		i;
+
+	i = -1;
+	if (!str || !c)
+		return (NULL);
+	while (c[++i])
+	{
+		res = ft_strchr(str, c[i]);
+		if (res == NULL)
+			break ;
+	}
+	return (res);
 }

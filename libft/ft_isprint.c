@@ -6,11 +6,11 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:23:47 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/19 09:23:53 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 10:52:59 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isprint(int c)
+int	ft_isprint(int c)
 {
 	if (c >= 32 && c < 127)
 		return (1);

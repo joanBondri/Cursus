@@ -6,11 +6,11 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:39:01 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:39:03 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:11:52 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
 	int		i;
 

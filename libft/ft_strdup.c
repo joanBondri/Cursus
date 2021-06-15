@@ -6,7 +6,7 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:36:42 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/18 16:36:45 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:09:08 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char	*ft_strdup(const char *s)
 	len = 0;
 	while (s[len])
 		len++;
-	if (!(res = malloc(sizeof(char) * (len + 1))))
+	res = malloc(sizeof(char) * (len + 1));
+	if (!(res))
 		return (NULL);
 	while (s[++i])
 		res[i] = s[i];

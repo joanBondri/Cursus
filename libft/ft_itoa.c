@@ -6,7 +6,7 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:48:05 by jbondri           #+#    #+#             */
-/*   Updated: 2020/11/21 12:11:10 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/06/11 10:54:08 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static	int	lint(long nbr)
 	return (len);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	int		len_n;
 	long	nbr;
@@ -41,7 +41,8 @@ char		*ft_itoa(int n)
 
 	nbr = (long)n;
 	len_n = lint(nbr);
-	if (!(str = malloc(sizeof(char) * (len_n + 1))))
+	str = malloc(sizeof(char) * (len_n + 1));
+	if (!str)
 		return (NULL);
 	str[len_n--] = '\0';
 	if (nbr == 0)
