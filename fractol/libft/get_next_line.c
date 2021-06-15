@@ -48,7 +48,6 @@ int	recurs(int fd, char **line)
 {
 	static char		x[BUFFER_SIZE + 1] = "";
 	int				res;
-	int				i;
 
 	res = assign(&line, (char *)&(x));
 	if (res == 0)
@@ -66,7 +65,7 @@ int	recurs(int fd, char **line)
 		return (recurs(fd, line));
 	}
 	else
-		decaler((char *)&x, res);
+		decaler(res, (char *)&x);
 	return (OK);
 }
 

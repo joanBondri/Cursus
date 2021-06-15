@@ -3,12 +3,14 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <stdlib.h>
 # include <stdbool.h>
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <mlx.h>
 # include <limits.h>
+# include "libft.h"
 # define COLOR_MAX 16777215
 # define SHORT_MAX 65535
 # define BASIC_LOOP 500

@@ -1,10 +1,10 @@
-SRC = 		algo_math.c \
-			main.c \
-			mlx_setup.c \
-			graphique.c \
-			parse.c \
-			event.c \
-			hsv.c \
+SRC = 		srcs/algo_math.c \
+			srcs/main.c \
+			srcs/mlx_setup.c \
+			srcs/graphique.c \
+			srcs/parse.c \
+			srcs/event.c \
+			srcs/hsv.c \
 
 OBJS = $(SRC:.c=.o)
 
@@ -12,7 +12,7 @@ NAME = fractol
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I./
+CFLAGS = -Wall -Wextra -Werror -I./ -I ./libft/
 CFLAGS2 = -I./minilibx -I/usr/include -I ./ -lXext -lX11 -lbsd -L./minilibx -lm -lmlx ./libft/libft.a
 RM = rm -rf
 
