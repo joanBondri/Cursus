@@ -15,12 +15,6 @@ void	resize(void *mlx, t_fractol *u)
 	return ;
 }
 
-int	minimalize(t_store *s)
-{
-	next_frame(s);
-	return (0);
-}
-
 int	windows_key(t_store *s)
 {
 	mlx_destroy_image(s->mlx.mlx, s->img.img);
@@ -29,11 +23,20 @@ int	windows_key(t_store *s)
 	return (0);
 }
 
+int	escape(int keycode, t_store *s)
+{
+	(void)s;
+	if (keycode == ESC)
+		windows_key(s);
+	return (0);
+}
+
 void	main_mlx(t_store *s)
 {
 	mlx_put_image_to_window(s->mlx.mlx, s->mlx.mlx_win, s->img.img, 0, 0);
 	mlx_hook(s->mlx.mlx_win, 4, 1 << 2, &mouse_event, s);
-	mlx_expose_hook(s->mlx.mlx_win, minimalize, s);
+	mlx_key_hook(s->mlx.mlx_win, escape, s);
+	mlx_expose_hook(s->mlx.mlx_win, next_frame, s);
 	mlx_hook(s->mlx.mlx_win, 33, 1L << 17, windows_key, s);
 	mlx_loop(s->mlx.mlx);
 }

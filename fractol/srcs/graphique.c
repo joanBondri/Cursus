@@ -17,8 +17,7 @@ void	my_mlx_pixel_put(t_img img, int x, int y, int color)
 	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
-
-void	next_frame(t_store *s)
+int	next_frame(t_store *s)
 {
 	int			i;
 	int			j;
@@ -45,4 +44,5 @@ void	next_frame(t_store *s)
 	}
 	mlx_put_image_to_window(s->mlx.mlx,
 		s->mlx.mlx_win, s->img.img, 0, 0);
+	return (0);
 }

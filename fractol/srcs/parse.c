@@ -20,17 +20,17 @@ void	check_value(t_fractol unique)
 		print_error_text();
 }
 
-void	parse_3(char **arv, t_fractol *unique)
+void	parse_3(char ***arv, t_fractol *unique)
 {
-	if (!*(++arv)
-		|| (ft_strncmp("M", *(arv), 3) && ft_strncmp("J", *(arv), 3)))
+	if (!*(++*arv)
+		|| (ft_strncmp("M", **(arv), 3) && ft_strncmp("J", **(arv), 3)))
 		print_error_text();
-	if (**(arv) == 'M')
+	if (***(arv) == 'M')
 		unique->set = MANDELBROT;
-	else if (**(arv) == 'J')
+	else if (***(arv) == 'J')
 	{
 		unique->set = JULIA;
-		unique->base = get_base_num(&arv);
+		unique->base = get_base_num(arv);
 	}
 }
 
@@ -39,8 +39,8 @@ void	parse_2(char ***arv, t_fractol *unique)
 	char	**s;
 	char	**f;
 
-	s = *(++arv);
-	f = *(++arv);
+	s = (++*arv);
+	f = (++*arv);
 	if (!*s || !*f)
 		print_error_text();
 	if (!ft_loop_strchr("0123456789.", *s)
@@ -59,11 +59,11 @@ void	parse(char **arv, t_fractol *unique)
 		else if (!ft_strncmp("-d", *arv, 3)
 			|| !ft_strncmp("--display", *arv, 10))
 			parse_2(&arv, unique);
-		else if (!ft_strncmp("-l", *arv, 3) || !ft_strncmp("--loop", *arv, 7)
+		else if ((!ft_strncmp("-l", *arv, 3) || !ft_strncmp("--loop", *arv, 7))
 			&& ft_loop_strchr("0123456789.", *(++arv)))
 			unique->loop = ft_atoi(*arv);
-		if (!ft_strncmp("-s", *arv, 3) || !ft_strncmp("--set", *arv, 6))
-			parse_3(arv, unique);
+		else if (!ft_strncmp("-s", *arv, 3) || !ft_strncmp("--set", *arv, 6))
+			parse_3(&arv, unique);
 		else
 			print_error_text();
 	}

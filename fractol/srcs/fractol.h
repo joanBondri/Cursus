@@ -11,6 +11,7 @@
 # include <mlx.h>
 # include <limits.h>
 # include "libft.h"
+# define ESC 65307
 # define COLOR_MAX 16777215
 # define SHORT_MAX 65535
 # define BASIC_LOOP 500
@@ -69,7 +70,7 @@ void	go_to_mlx(t_fractol *unique);
 void	parse(char **arv, t_fractol *unique);
 void	print_error_text(void);
 int		time_loop(int time, t_comp num, t_comp c);
-void	next_frame(t_store *s);
+int	next_frame(t_store *s);
 float	norm(t_comp num);
 int		hsv_to_hex(double h, float s, float v);
 int		time_loop_julia(int time, t_comp num, t_comp c);
