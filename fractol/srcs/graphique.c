@@ -17,6 +17,16 @@ void	my_mlx_pixel_put(t_img img, int x, int y, int color)
 	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
+
+t_comp	bijection_pixel_to_num(t_fractol u)
+{
+	t_comp		coo;
+
+	coo.r = 2 * i * u.scale / u.width - u.scale + u.center.r;
+	coo.i = (u.height - 2 * j) * u.scale / u.width + u.center.i;
+	return (coo);
+}
+
 int	next_frame(t_store *s)
 {
 	int			i;
@@ -33,8 +43,7 @@ int	next_frame(t_store *s)
 		j = -1;
 		while (++j < u.height)
 		{
-			coo.r = 2 * i * u.scale / u.width - u.scale + u.center.r;
-			coo.i = (u.height - 2 * j) * u.scale / u.width + u.center.i;
+			coo = bijection_pixel_to_num(u);
 			if (u.set == JULIA)
 				result.result = time_loop_julia(u.loop, coo, u.base);
 			else if (u.set == MANDELBROT)
