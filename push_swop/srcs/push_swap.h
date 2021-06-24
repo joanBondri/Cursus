@@ -16,6 +16,8 @@ typedef enum	e_move{
 	pa,
 	pb
 }				t_move;
+int parser(t_list *a, t_list *b, char **argv);
+void	*ft_malloc(size_t i);
 
 
 #endif

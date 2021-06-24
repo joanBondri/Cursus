@@ -2,10 +2,10 @@
 
 int	main(int argc, char **argv)
 {	
-	t_list	a;
-	t_list	b;
+	t_list	*a;
+	t_list	*b;
 
 	(void)argc;
-	parser(&a, &b, argv);
+	parser(a, b, argv);
 	return (0);
 }
