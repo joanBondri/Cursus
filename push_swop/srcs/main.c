@@ -6,6 +6,8 @@ int	main(int argc, char **argv)
 	t_list	*b;
 
 	(void)argc;
+	a = NULL;
+	b = NULL;
 	parser(a, b, argv);
 	return (0);
 }

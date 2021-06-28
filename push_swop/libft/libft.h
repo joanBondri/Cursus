@@ -13,6 +13,7 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stddef.h>
+# include "ansi.h"
 # include "get_next_line.h"
 
 typedef struct s_list

@@ -1,7 +1,8 @@
 #include "push_swap.h"
 
-void	ft_exit(void)
+void	ft_exit(char *str)
 {
+	printf("%s\n", str);
 	exit(0);
 }
 
@@ -11,7 +12,7 @@ void	*ft_malloc(size_t i)
 
 	ptr = malloc(i);
 	if (!ptr)
-		ft_exit();
+		ft_exit("MALLOC : "RED"failed"RESET);
 	return (ptr);
 }
 
@@ -45,7 +46,7 @@ int parser(t_list *a, t_list *b, char **argv)
 	while (*(++(argv)))
 	{
 		if (!ft_loop_strchr("0123456789", *argv))
-			ft_exit();
+			ft_exit("PARSING : "RED"failed"RESET);
 		if (!a)
 			a = ft_lstnew(int_to_ptr(ft_atoi(*argv)));
 		else
