@@ -1,4 +1,5 @@
 SRC2 =	srcs/main.c \
+		srcs/convert.c \
 		srcs/parser.c \
 
 #OBJS1 = $(SRC1:.c=.o)

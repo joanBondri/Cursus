@@ -1,6 +1,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include "libft.h"
+# include <limits.h>
 
 typedef enum	e_move{
 
@@ -16,8 +17,10 @@ typedef enum	e_move{
 	pa,
 	pb
 }				t_move;
-int parser(t_list *a, t_list *b, char **argv);
+void	print_stack(t_list *a, t_list *b);
+int		parser(t_list **a, t_list **b, char **argv);
 void	*ft_malloc(size_t i);
+void	convert_to_index(t_list *a);
 
 
 #endif

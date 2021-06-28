@@ -22,8 +22,8 @@ void	print_stack(t_list *a, t_list *b)
 	t_list	*stock;
 
 	printf("|%10s|%10s|\n", "A", "B");
-	stack = a->next;
-	stock = b->next;
+	stack = a;
+	stock = b;
 	while (stack || stock)
 	{
 		if (stack && stock)
@@ -38,20 +38,18 @@ void	print_stack(t_list *a, t_list *b)
 			stock = stock->next;
 	}
 }
-
-int parser(t_list *a, t_list *b, char **argv)
+//aussi check si le nombre n'a pas ete utilisrr deja
+int parser(t_list **a, t_list **b, char **argv)
 {	
-	a = ft_lstnew(NULL);
-	b = ft_lstnew(NULL);
 	while (*(++(argv)))
 	{
 		if (!ft_loop_strchr("0123456789", *argv))
 			ft_exit("PARSING : "RED"failed"RESET);
-		if (!a)
-			a = ft_lstnew(int_to_ptr(ft_atoi(*argv)));
+		if (!(*a))
+			*a = ft_lstnew(int_to_ptr(ft_atoi(*argv)));
 		else
-			ft_lstadd_back(&a, ft_lstnew(int_to_ptr(ft_atoi(*argv))));
+			ft_lstadd_back(a, ft_lstnew(int_to_ptr(ft_atoi(*argv))));
 	}
-	print_stack(a, b);
+	print_stack(*a, *b);
 	return (0);
 }
