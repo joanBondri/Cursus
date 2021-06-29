@@ -10,6 +10,6 @@ int	main(int argc, char **argv)
 	b = NULL;
 	parser(&a, argv);
 	convert_to_index(&a);
-	print_stack(a, b);
+	algo(&a, &b);
 	return (0);
 }
