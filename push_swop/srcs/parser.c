@@ -39,17 +39,16 @@ void	print_stack(t_list *a, t_list *b)
 	}
 }
 //aussi check si le nombre n'a pas ete utilisrr deja
-int parser(t_list **a, t_list **b, char **argv)
+int parser(t_list **a, char **argv)
 {	
 	while (*(++(argv)))
 	{
-		if (!ft_loop_strchr("0123456789", *argv))
+		if (!ft_loop_strchr("-0123456789", *argv))
 			ft_exit("PARSING : "RED"failed"RESET);
 		if (!(*a))
 			*a = ft_lstnew(int_to_ptr(ft_atoi(*argv)));
 		else
 			ft_lstadd_back(a, ft_lstnew(int_to_ptr(ft_atoi(*argv))));
 	}
-	print_stack(*a, *b);
 	return (0);
 }
