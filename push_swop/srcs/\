@@ -4,20 +4,23 @@ int	push_to_a(t_list **a, t_list **b, int hwmny)
 {
 	int		pivot;
 	int		res;
+	t_list	*buff;
 
 	if (hwmny == -1)
 		hwmny = ft_lstsize(*b);
 	pivot = find_med(b, hwmny);
 	res = 0;
-	while (--hwmny)
+	buff = *b;
+	while (--hwmny && buff)
 	{
-		if (*((int*)(*b)->content) >= pivot)
+		if (*((int*)buff->content) > pivot)
 		{
 			res++;
 			moves(PA, a, b);
 		}
 		else
 			moves(RB, a, b);
+		buff = buff->next;
 	}
 	return (res);
 }
@@ -42,18 +45,21 @@ int		push_back_to_b(t_list **a, t_list **b, int hmny, t_list **part)
 {
 	int		pivot;
 	int		res;
+	t_list	*buff;
 
 	pivot = find_med(a, hmny);
+	buff = *a;
 	res = 0;
-	while (hmny--)
+	while (hmny-- && buff)
 	{
-		if (*((int*)(*a)->content) <= pivot)
+		if (*((int*)buff->content) < pivot)
 		{
 			res++;
 			moves(PB, a, b);
 		}
 		else
 			moves(RA, a, b);
+		buff = buff->next;
 	}
 	push_part(part, res);
 	return (res);
@@ -64,19 +70,22 @@ void	initial_push(t_list **a, t_list **b, t_list **part)
 	int		pivot;
 	int		size;
 	int		res;
+	t_list	*buff;
 
 	size = ft_lstsize(*a);
 	pivot = size - 3;
+	buff = *a;
 	res = 0;
 	while (size--)
 	{
-		if (*((int*)(*a)->content) <= pivot)
+		if (*((int*)buff->content) <= pivot)
 		{
 			res++;
 			moves(PB, a, b);
 		}
 		else
 			moves(RA, a, b);
+		buff = *a;
 	}
 	push_part(part, res);
 	sort_few_num(a, b, ft_lstsize(*a));
