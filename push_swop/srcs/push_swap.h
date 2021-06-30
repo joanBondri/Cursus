@@ -19,6 +19,10 @@ int		parser(t_list **a, char **argv);
 void	*ft_malloc(size_t i);
 void	convert_to_index(t_list **a);
 void	moves(int move, t_list **a, t_list **b);
+void	sort_few_num(t_list **a, t_list **b, int hwmny);
+int		pop_part(t_list **part);
+bool	push_part(t_list **part, int nbr);
+void	algo(t_list **a, t_list **b);
 
 
 #endif
