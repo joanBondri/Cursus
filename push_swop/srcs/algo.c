@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	push_to_a(t_list **a, t_list **b, int hwmny)
+int	push_to_a(t_list **a, t_list **b, int hwmny)
 {
 	int		pivot;
 	int		res;
@@ -22,6 +22,47 @@ void	push_to_a(t_list **a, t_list **b, int hwmny)
 			moves(RB, a, b);
 		buff = buff->next;
 	}
+	return (res);
+}
+
+bool	check_stack(t_list **a, t_list **b)
+{
+	t_list	*buff;
+
+	if (!b || !a || *b)
+		return (false);
+	buff = *a;
+	while (buff && buff->next)
+	{
+		if (*((int*)buff->content) > *((int*)(buff->next)->content))
+			return (false);
+		buff = buff->next;
+	}
+	return (true);
+}
+
+int		push_back_to_b(t_list **a, t_list **b, int hmny, t_list **part)
+{
+	int		pivot;
+	int		res;
+	t_list	buff;
+
+	pivot = find_med(a, hmny);
+	buff = *a;
+	res = 0;
+	while (hmny-- && buff)
+	{
+		if (*((int)buff->content) < pivot)
+		{
+			res++;
+			moves(PB, a, b);
+		}
+		else
+			moves(RA, a, b);
+		buff = buff->next;
+	}
+	push_part(part, res);
+	return (res);
 }
 
 void	initial_push(t_list **a, t_list **b, t_list **part)
@@ -66,4 +107,5 @@ void	algo(t_list **a, t_list **b)
 			res -= push_back_to_b(a, b, res, &part);
 		sort_few_num(a, b, res);
 	}
+	print_stack(*a, *b);
 }

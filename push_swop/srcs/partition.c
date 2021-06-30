@@ -37,7 +37,7 @@ int		pop_part(t_list **part)
 
 	if (!part || !(*part))
 		return (-1);
-	res = (*(*int)(*part)->content);
+	res = *((int*)(*part)->content);
 	buff = *part;
 	*part = (*part)->next;
 	ft_lstdelone(buff, free);
