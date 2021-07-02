@@ -54,7 +54,7 @@ void	sort_two_num(t_list **a, t_list **b)
 
 void	sort_few_num(t_list **a, t_list **b, int hwmny)
 {
-	if (hwmny != 2 || hwmny != 3)
+	if (hwmny != 2 && hwmny != 3)
 		return ;
 	if (hwmny == 2)
 		return (sort_two_num(a, b));

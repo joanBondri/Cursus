@@ -9,7 +9,7 @@ int	push_to_a(t_list **a, t_list **b, int hwmny)
 		hwmny = ft_lstsize(*b);
 	pivot = find_med(b, hwmny);
 	res = 0;
-	while (--hwmny)
+	while (hwmny--)
 	{
 		if (*((int*)(*b)->content) >= pivot)
 		{
@@ -90,17 +90,14 @@ void	algo(t_list **a, t_list **b)
 
 	if (ft_lstsize(*a) < 3)
 		exit(1);
-	print_stack(*a, *b);
+	//print_stack(*a, *b);
 	initial_push(a, b, &part);
 	while (!check_stack(a, b))
 	{
-		print_stack(*a, *b);
-		printf("\n\n");
-		usleep(2000000);
-		res = push_to_a(a, b, pop_part(&part));
+		res = pop_part(&part);
+		res = push_to_a(a, b, res);
 		while (res > 3)
 			res -= push_back_to_b(a, b, res, &part);
 		sort_few_num(a, b, res);
 	}
-	print_stack(*a, *b);
 }
