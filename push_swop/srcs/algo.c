@@ -5,6 +5,7 @@ int	push_to_a(t_list **a, t_list **b, int hwmny)
 	int		pivot;
 	int		res;
 
+	printf("PUSH TO A\n");
 	if (hwmny == -1)
 		hwmny = ft_lstsize(*b);
 	pivot = find_med(b, hwmny);
@@ -42,9 +43,12 @@ int		push_back_to_b(t_list **a, t_list **b, int hmny, t_list **part)
 {
 	int		pivot;
 	int		res;
+	int		rop;
 
 	pivot = find_med(a, hmny);
 	res = 0;
+	rop = 0;
+	printf(GRN"PUSH BACK TO B\n"RESET);
 	while (hmny--)
 	{
 		if (*((int*)(*a)->content) <= pivot)
@@ -53,8 +57,13 @@ int		push_back_to_b(t_list **a, t_list **b, int hmny, t_list **part)
 			moves(PB, a, b);
 		}
 		else
+		{
+			rop++;
 			moves(RA, a, b);
+		}
 	}
+	while (rop--)
+		moves(RRA, a, b);
 	push_part(part, res);
 	return (res);
 }
@@ -90,7 +99,6 @@ void	algo(t_list **a, t_list **b)
 
 	if (ft_lstsize(*a) < 3)
 		exit(1);
-	//print_stack(*a, *b);
 	initial_push(a, b, &part);
 	while (!check_stack(a, b))
 	{

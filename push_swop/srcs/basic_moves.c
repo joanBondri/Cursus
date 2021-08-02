@@ -120,5 +120,9 @@ void	moves(int move, t_list **a, t_list **b)
 	else
 		res = move_p(move, a, b);
 	if (res)
-		printf("%s\n", tb[move - 1]);
+		printf("%s\n", tb[move - 1]);	
+	static int	i = 0;	
+	printf("#%i\n", i++);
+	print_stack(*a, *b);
+	sleep(1);
 }
