@@ -123,6 +123,11 @@ void	moves(int move, t_list **a, t_list **b)
 		printf("%s\n", tb[move - 1]);	
 	static int	i = 0;	
 	printf("#%i\n", i++);
-	print_stack(*a, *b);
-	sleep(1);
+	if (i > 110)
+	{
+		print_stack(*a, *b);
+		usleep(10000);
+	}
+	if (i > 150)
+		exit (0);
 }
