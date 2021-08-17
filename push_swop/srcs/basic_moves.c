@@ -48,7 +48,6 @@ bool	move_r(int move, t_list **a, t_list **b)
 	}
 	else
 		return (move_r(RA, a, b) || move_r(RB, a, b));
-	
 }
 
 bool	move_p(int move, t_list **a, t_list **b)
@@ -121,13 +120,13 @@ void	moves(int move, t_list **a, t_list **b)
 		res = move_p(move, a, b);
 	if (res)
 		printf("%s\n", tb[move - 1]);	
-	static int	i = 0;	
-	printf("#%i\n", i++);
-	if (i > 110)
-	{
-		print_stack(*a, *b);
-		usleep(10000);
-	}
-	if (i > 150)
-		exit (0);
+//	static int	i = 0;
+//	printf("#%i\n", i++);
+//	if (i > 0)
+///	{
+//		print_stack(*a, *b);
+//		usleep(1000000);
+//	}
+//	if (i > 110)
+//		exit (0);
 }

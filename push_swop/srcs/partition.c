@@ -26,6 +26,8 @@ bool	push_part(t_list **part, int nbr)
 {
 	if (!part)
 		return (false);
+
+	//printf(RED"\nnbr = %i\n"RESET, nbr);
 	ft_lstadd_front(part, ft_lstnew(int_to_ptr(nbr)));
 	return (true);
 }
@@ -36,7 +38,7 @@ int		pop_part(t_list **part)
 	t_list	*buff;
 
 	if (!part || !(*part))
-		return (-1);
+		return (INT_MIN);
 	res = *((int*)(*part)->content);
 	buff = *part;
 	*part = (*part)->next;
