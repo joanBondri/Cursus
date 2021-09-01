@@ -43,7 +43,7 @@ int parser(t_list **a, char **argv)
 {	
 	while (*(++(argv)))
 	{
-		if (!ft_loop_strchr("-0123456789", *argv))
+		if (!ft_loop_strchr("-0123456789 \t\n\f", *argv))
 			ft_exit("PARSING : "RED"failed"RESET);
 		if (!(*a))
 			*a = ft_lstnew(int_to_ptr(ft_atoi(*argv)));

@@ -24,6 +24,8 @@ int		pop_part(t_list **part);
 bool	push_part(t_list **part, int nbr);
 void	algo(t_list **a, t_list **b);
 int		find_med(t_list **s, int loop);
+bool	check_equality_one(t_list *b, int pivot, int hwmny);
+bool	check_equality_two(t_list *b, int pivot, int hwmny);
 
 
 #endif

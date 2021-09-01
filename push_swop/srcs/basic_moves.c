@@ -120,13 +120,11 @@ void	moves(int move, t_list **a, t_list **b)
 		res = move_p(move, a, b);
 	if (res)
 		printf("%s\n", tb[move - 1]);	
-//	static int	i = 0;
-//	printf("#%i\n", i++);
-//	if (i > 0)
-///	{
-//		print_stack(*a, *b);
-//		usleep(1000000);
-//	}
-//	if (i > 110)
-//		exit (0);
-}
+/*	static int	i = 0;
+	printf("#%i\n", i++);
+	if (i > 100)
+	{
+		print_stack(*a, *b);
+		usleep(1000000);
+	}
+*/}

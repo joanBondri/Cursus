@@ -4,6 +4,7 @@ SRC2 =	srcs/main.c \
 		srcs/parser.c \
 		srcs/partition.c \
 		srcs/algo.c \
+		srcs/opti.c \
 		srcs/sort_few_nbr.c \
 
 #OBJS1 = $(SRC1:.c=.o)
