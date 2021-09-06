@@ -6,7 +6,7 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:50:37 by jbondri           #+#    #+#             */
-/*   Updated: 2021/06/11 11:25:12 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/09/06 17:59:54 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putstr_fd(char *s, int fd);
-char			**ft_split(char const *s, char c);
+char			**ft_split(char const *s, char *c);
 char			*ft_strchr(const char *str, int c);
 char			*ft_strdup(const char *s);
 char			*ft_strjoin(char const *str1, char const *str2);
@@ -72,4 +72,5 @@ char			*ft_strrchr(const char *str, int c);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
+void			free_second_deg(char **s);
 #endif

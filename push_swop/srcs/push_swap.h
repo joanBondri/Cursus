@@ -15,7 +15,7 @@
 # include <limits.h>
 
 void	print_stack(t_list *a, t_list *b);
-int		parser(t_list **a, char **argv);
+void	parser(t_list **a, char **argv, int argc);
 void	*ft_malloc(size_t i);
 void	convert_to_index(t_list **a);
 void	moves(int move, t_list **a, t_list **b);

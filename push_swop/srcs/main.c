@@ -8,7 +8,7 @@ int	main(int argc, char **argv)
 	(void)argc;
 	a = NULL;
 	b = NULL;
-	parser(&a, argv);
+	parser(&a, argv, argc);
 	convert_to_index(&a);
 	algo(&a, &b);
 	return (0);

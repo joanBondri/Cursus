@@ -38,17 +38,71 @@ void	print_stack(t_list *a, t_list *b)
 			stock = stock->next;
 	}
 }
-//aussi check si le nombre n'a pas ete utilisrr deja
-int parser(t_list **a, char **argv)
-{	
-	while (*(++(argv)))
+
+void	parser_str(t_list **a, char *argv)
+{
+	char	**s;
+	char	**buff;
+
+	if (!*argv)
+		ft_exit("ERROR : "RED"null argument");
+	s = ft_split(argv, " \n\t\f\v");
+	buff = s;
+	--s;
+	while (*(++s))
 	{
-		if (!ft_loop_strchr("-0123456789 \t\n\f", *argv))
-			ft_exit("PARSING : "RED"failed"RESET);
 		if (!(*a))
-			*a = ft_lstnew(int_to_ptr(ft_atoi(*argv)));
+			*a = ft_lstnew(int_to_ptr(ft_atoi(*s)));
 		else
-			ft_lstadd_back(a, ft_lstnew(int_to_ptr(ft_atoi(*argv))));
+			ft_lstadd_back(a, ft_lstnew(int_to_ptr(ft_atoi(*s))));
 	}
+	free_second_deg(buff);
+}
+
+void	check_duplicate_number(t_list *a)
+{
+	t_list	*buff;
+	t_list	*def;
+	int		test;
+
+	buff = a;
+	while (buff)
+	{
+		test = *((int*)buff->content);
+		def = buff->next;
+		while (def)
+		{
+			if (test == *((int*)def->content))
+				ft_exit("PARSING : "RED"duplicate number"RESET);
+			def = def->next;
+		}
+		buff = buff->next;
+	}
+}
+
+int parser_classic(t_list **a, char *argv)
+{
+	if (!*argv)
+		ft_exit("ERROR : "RED"null argument");
+	if (!(*a))
+		*a = ft_lstnew(int_to_ptr(ft_atoi(argv)));
+	else
+		ft_lstadd_back(a, ft_lstnew(int_to_ptr(ft_atoi(argv))));
 	return (0);
+}
+
+void	parser(t_list **a, char **argv, int argc)
+{
+	if (argc == 1)
+		ft_exit("ERROR : "RED"too few arguments"RESET);
+	while (*(++argv))
+	{
+		if (ft_loop_strchr("-0123456789", *argv))
+			parser_classic(a, *argv);
+		else if (ft_loop_strchr("-0123456789 \n\f\t\v", *argv))
+			parser_str(a, *argv);
+		else
+			ft_exit("PARSING : "RED"failed"RESET);
+	}
+	check_duplicate_number(*a);
 }
