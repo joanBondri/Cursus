@@ -39,22 +39,33 @@ void	print_stack(t_list *a, t_list *b)
 	}
 }
 
+int	ft_pre_atoi(char *s)
+{
+	if (!s)
+		ft_exit("ERROR : "RED"null argument"RESET);
+	if (ft_loop_strchr("0123456789", s) ||
+			ft_loop_strchr("0123456789", (s + 1)))
+		return (ft_atoi(s));
+	ft_exit("ERROR : "RED"wrong argument"RESET);
+	return (0);
+}
+
 void	parser_str(t_list **a, char *argv)
 {
 	char	**s;
 	char	**buff;
 
 	if (!*argv)
-		ft_exit("ERROR : "RED"null argument");
+		ft_exit("ERROR : "RED"null argument"RESET);
 	s = ft_split(argv, " \n\t\f\v");
 	buff = s;
 	--s;
 	while (*(++s))
 	{
 		if (!(*a))
-			*a = ft_lstnew(int_to_ptr(ft_atoi(*s)));
+			*a = ft_lstnew(int_to_ptr(ft_pre_atoi(*s)));
 		else
-			ft_lstadd_back(a, ft_lstnew(int_to_ptr(ft_atoi(*s))));
+			ft_lstadd_back(a, ft_lstnew(int_to_ptr(ft_pre_atoi(*s))));
 	}
 	free_second_deg(buff);
 }
@@ -66,6 +77,8 @@ void	check_duplicate_number(t_list *a)
 	int		test;
 
 	buff = a;
+	if (ft_lstsize(a) < 1)
+		ft_exit("ERROR : "RED"too few number"RESET);
 	while (buff)
 	{
 		test = *((int*)buff->content);
@@ -85,9 +98,9 @@ int parser_classic(t_list **a, char *argv)
 	if (!*argv)
 		ft_exit("ERROR : "RED"null argument");
 	if (!(*a))
-		*a = ft_lstnew(int_to_ptr(ft_atoi(argv)));
+		*a = ft_lstnew(int_to_ptr(ft_pre_atoi(argv)));
 	else
-		ft_lstadd_back(a, ft_lstnew(int_to_ptr(ft_atoi(argv))));
+		ft_lstadd_back(a, ft_lstnew(int_to_ptr(ft_pre_atoi(argv))));
 	return (0);
 }
 
