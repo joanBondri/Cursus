@@ -4,6 +4,7 @@ SRC2 =	srcs/main.c \
 		srcs/parser.c \
 		srcs/partition.c \
 		srcs/algo.c \
+		srcs/useful_func.c \
 		srcs/opti.c \
 		srcs/sort_few_nbr.c \
 
@@ -27,10 +28,6 @@ RM = rm -rf
 	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 all: $(NAME2)
-
-#$(NAME1): $(OBJS1)
-#		make -C libft
-#		$(CC)  $(OBJS1) $(LIBFT) -o $(NAME1) $(CFLAGS)
 
 $(NAME2): $(OBJS2)
 		make -C libft

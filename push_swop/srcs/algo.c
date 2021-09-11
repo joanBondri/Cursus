@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbondri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/11 19:51:57 by jbondri           #+#    #+#             */
+/*   Updated: 2021/09/11 19:52:04 by jbondri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	push_to_a(t_list **a, t_list **b, t_list **part, int hwmny)
@@ -6,7 +18,6 @@ int	push_to_a(t_list **a, t_list **b, t_list **part, int hwmny)
 	int		res;
 	int		ros;
 
-	//printf(GRN"PUSH TO A\n"RESET);
 	if (hwmny < 0)
 		hwmny = ft_lstsize(*b);
 	if (hwmny == 0)
@@ -14,12 +25,11 @@ int	push_to_a(t_list **a, t_list **b, t_list **part, int hwmny)
 	pivot = find_med(b, hwmny);
 	if (hwmny <= 3)
 		pivot = -1;
-	//printf(BLU"hwmny = %i, med = %i\n"RESET, hwmny, pivot);
 	res = 0;
 	ros = 0;
 	while (check_equality_one(*b, pivot, hwmny) && hwmny--)
 	{
-		if (*((int*)(*b)->content) >= pivot && ++res)
+		if (*((int *)(*b)->content) >= pivot && ++res)
 			moves(PA, a, b);
 		else if (++ros)
 			moves(RB, a, b);
@@ -27,7 +37,6 @@ int	push_to_a(t_list **a, t_list **b, t_list **part, int hwmny)
 	push_part(part, pop_part(part) + ros + hwmny);
 	while (ros--)
 		moves(RRB, a, b);
-	//print_stack(*a, *b);
 	return (res);
 }
 
@@ -40,14 +49,14 @@ bool	check_stack(t_list **a, t_list **b)
 	buff = *a;
 	while (buff && buff->next)
 	{
-		if (*((int*)buff->content) > *((int*)(buff->next)->content))
+		if (*((int *)buff->content) > *((int *)(buff->next)->content))
 			return (false);
 		buff = buff->next;
 	}
 	return (true);
 }
 
-int		push_back_to_b(t_list **a, t_list **b, int hmny, t_list **part)
+int	push_back_to_b(t_list **a, t_list **b, int hmny, t_list **part)
 {
 	int		pivot;
 	int		res;
@@ -58,7 +67,7 @@ int		push_back_to_b(t_list **a, t_list **b, int hmny, t_list **part)
 	rop = 0;
 	while (check_equality_two(*a, pivot, hmny) && hmny--)
 	{
-		if (*((int*)(*a)->content) <= pivot)
+		if (*((int *)(*a)->content) <= pivot)
 		{
 			res++;
 			moves(PB, a, b);
@@ -72,7 +81,6 @@ int		push_back_to_b(t_list **a, t_list **b, int hmny, t_list **part)
 	while (rop--)
 		moves(RRA, a, b);
 	push_part(part, res);
-	//print_stack(*a, *b);
 	return (res);
 }
 
@@ -87,7 +95,7 @@ void	initial_push(t_list **a, t_list **b, t_list **part)
 	res = 0;
 	while (size--)
 	{
-		if (*((int*)(*a)->content) <= pivot && ++res)
+		if (*((int *)(*a)->content) <= pivot && ++res)
 			moves(PB, a, b);
 		else
 			moves(RA, a, b);
@@ -96,7 +104,6 @@ void	initial_push(t_list **a, t_list **b, t_list **part)
 	sort_few_num(a, b, ft_lstsize(*a));
 }
 
-//l faut faire une condition pour moins de 5 nombres dans la stack A
 void	algo(t_list **a, t_list **b)
 {
 	t_list	*part;

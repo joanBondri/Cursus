@@ -1,54 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbondri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/11 20:03:05 by jbondri           #+#    #+#             */
+/*   Updated: 2021/09/11 20:04:30 by jbondri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-
-void	ft_exit(char *str)
-{
-	printf("%s\n", str);
-	exit(0);
-}
-
-void	*ft_malloc(size_t i)
-{
-	void	*ptr;
-
-	ptr = malloc(i);
-	if (!ptr)
-		ft_exit("MALLOC : "RED"failed"RESET);
-	return (ptr);
-}
-
-void	print_stack(t_list *a, t_list *b)
-{
-	t_list	*stack;
-	t_list	*stock;
-
-	printf("|%10s|%10s|\n", "A", "B");
-	stack = a;
-	stock = b;
-	while (stack || stock)
-	{
-		if (stack && stock)
-			printf("|%10i|%10i|\n", *((int*)stack->content), *((int*)stock->content));
-		else if (stack)
-			printf("|%10i|%10s|\n", *((int*)stack->content), "");
-		else if (stock)
-			printf("|%10s|%10i|\n", "", *((int*)stock->content));
-		if (stack)
-			stack = stack->next;
-		if (stock)
-			stock = stock->next;
-	}
-}
-
-int	ft_pre_atoi(char *s)
-{
-	if (!s)
-		ft_exit("ERROR : "RED"null argument"RESET);
-	if (ft_loop_strchr("0123456789", s) ||
-			ft_loop_strchr("0123456789", (s + 1)))
-		return (ft_atoi(s));
-	ft_exit("ERROR : "RED"wrong argument"RESET);
-	return (0);
-}
 
 void	parser_str(t_list **a, char *argv)
 {
@@ -81,11 +43,11 @@ void	check_duplicate_number(t_list *a)
 		ft_exit("ERROR : "RED"too few number"RESET);
 	while (buff)
 	{
-		test = *((int*)buff->content);
+		test = *((int *)buff->content);
 		def = buff->next;
 		while (def)
 		{
-			if (test == *((int*)def->content))
+			if (test == *((int *)def->content))
 				ft_exit("PARSING : "RED"duplicate number"RESET);
 			def = def->next;
 		}
@@ -93,7 +55,7 @@ void	check_duplicate_number(t_list *a)
 	}
 }
 
-int parser_classic(t_list **a, char *argv)
+int	parser_classic(t_list **a, char *argv)
 {
 	if (!*argv)
 		ft_exit("ERROR : "RED"null argument");

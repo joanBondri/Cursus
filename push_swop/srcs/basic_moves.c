@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   basic_moves.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbondri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/11 19:52:14 by jbondri           #+#    #+#             */
+/*   Updated: 2021/09/11 19:55:22 by jbondri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 bool	move_rr(int move, t_list **a, t_list **b)
@@ -119,12 +131,5 @@ void	moves(int move, t_list **a, t_list **b)
 	else
 		res = move_p(move, a, b);
 	if (res)
-		printf("%s\n", tb[move - 1]);	
-/*	static int	i = 0;
-	printf("#%i\n", i++);
-	if (i > 100)
-	{
-		print_stack(*a, *b);
-		usleep(1000000);
-	}
-*/}
+		printf("%s\n", tb[move - 1]);
+}
