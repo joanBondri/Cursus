@@ -9,10 +9,10 @@ void	print_stack(int *a, int *b)
 	static	int	index = 0;
 
 	index++;
-	ft_printf("\033[2J\033[H");
-	ft_printf("#%i\n", index);
-	ft_printf("%10s|%10s|\n", "A", "B");
-	ft_printf("%.22s\n","___________________________");
+	printf("\033[2J\033[H");
+	printf("#%i\n", index);
+	printf("%10s|%10s|\n", "A", "B");
+	printf("%.22s\n","___________________________");
 	if (a[0] > b[0])
 	{
 		num = a[0];
@@ -29,11 +29,11 @@ void	print_stack(int *a, int *b)
 	while (++i <= num)
 	{
 		if (i - pada < 1)
-			ft_printf("%10s|%10i|\n", "", b[i]);
+			printf("%10s|%10i|\n", "", b[i]);
 		else if (i - padb < 1)
-			ft_printf("%10i|%10s|\n", a[i], "");
+			printf("%10i|%10s|\n", a[i], "");
 		else
-			ft_printf("%10i|%10i|\n",a[i - pada], b[i - padb]);
+			printf("%10i|%10i|\n",a[i - pada], b[i - padb]);
 	}
 	usleep(50000);
 }

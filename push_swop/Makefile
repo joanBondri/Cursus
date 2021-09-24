@@ -17,7 +17,7 @@ OBJS1 = $(SRC1:.c=.o)
 
 OBJS2 = $(SRC2:.c=.o)
 
-NAME1 = checker_bonus
+NAME1 = checker
 
 NAME2 = push_swap
 

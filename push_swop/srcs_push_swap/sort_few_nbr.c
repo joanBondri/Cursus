@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	second_step(int one, int two, int thr, t_couple c)
+void	second_step(int one, int two, int thr, t_couple *c)
 {
 	if (one > two && one < thr)
 		moves(SA, c->a, c->b);
@@ -43,16 +43,18 @@ void	second_step(int one, int two, int thr, t_couple c)
 
 void	sort_three_num(t_list **a, t_list **b)
 {
-	int		one;
-	int		two;
-	int		thr;
+	int			one;
+	int			two;
+	int			thr;
+	t_couple	yop;
 
 	if (ft_lstsize(*a) < 3)
 		return ;
 	one = *((int *)(*a)->content);
 	two = *((int *)((*a)->next)->content);
 	thr = *((int *)(((*a)->next)->next)->content);
-	second_step(one, two, thr, (t_couple){.a = a, .b = b});
+	yop = (t_couple){.a = a, .b = b};
+	second_step(one, two, thr, &yop);
 }
 
 void	sort_two_num(t_list **a, t_list **b)

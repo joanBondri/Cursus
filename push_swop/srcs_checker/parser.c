@@ -53,7 +53,7 @@ void	special_input(char **argv, int **a, int **b)
 	char	**strs;
 	int		cpt;
 
-	strs = ft_split(argv[0], ' ');
+	strs = ft_split(argv[0], " ");
 	cpt = 0;
 	while (strs[cpt])
 		cpt++;
