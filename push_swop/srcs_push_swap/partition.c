@@ -47,7 +47,7 @@ int	pop_part(t_list **part)
 	int		res;
 	t_list	*buff;
 
-	if (!part || !(*part))
+	if (!part || !(*part) || (*part)->content)
 		return (INT_MIN);
 	res = *((int *)(*part)->content);
 	buff = *part;
