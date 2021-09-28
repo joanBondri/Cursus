@@ -17,7 +17,6 @@ int	main(int argc, char **argv)
 	}
 	assign_arr(argc - 1, argv + 1, &tba, &tbb);
 	str = NULL;
-	flags.view = true;
 	while (get_next_line(0, &str) != -1)
 	{
 		if (str[0] == 0)

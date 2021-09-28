@@ -21,11 +21,11 @@ NAME1 = checker
 
 NAME2 = push_swap
 
-CC = clang
+CC = gcc
 
 LIBFT = ./libft/libft.a
 
-CFLAGS = -Wall -Wextra -Werror -I ./libft/ -I ./srcs_push_swap/ -I ./srcs_checker/
+CFLAGS = -fsanitize=address -g3 -Wall -Wextra -Werror -I ./libft/ -I ./srcs_push_swap/ -I ./srcs_checker/
 
 RM = rm -rf
 
