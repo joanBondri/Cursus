@@ -25,7 +25,7 @@ CC = gcc
 
 LIBFT = ./libft/libft.a
 
-CFLAGS = -fsanitize=address -g3 -Wall -Wextra -Werror -I ./libft/ -I ./srcs_push_swap/ -I ./srcs_checker/
+CFLAGS = -Wall -Wextra -Werror -I ./libft/ -I ./srcs_push_swap/ -I ./srcs_checker/
 
 RM = rm -rf
 

@@ -3,7 +3,7 @@
 # include "printf.h"
 # include <stdbool.h>
 
-typedef struct		s_flags
+typedef struct s_flags
 {
 	bool	view;
 }					t_flags;

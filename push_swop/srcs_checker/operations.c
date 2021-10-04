@@ -80,28 +80,21 @@ void	p_op(char *str, int **a, int **b)
 {
 	int	*src;
 	int	*dest;
-    int i;
-    int num;
-    int swp;
+	int	i;
+	int	swp;
 
-//	print_stack(*a, *b);
-//	usleep(5000);
+	src = *a;
+	dest = *b;
 	if (!ft_strncmp(str, "pa", 3))
 	{
 		src = *b;
 		dest = *a;
 	}
-	else
-	{
-		src = *a;
-		dest = *b;
-	}
 	if (src[0] == 0)
 		return ;
-	num = src[0];
 	swp = src[1];
 	i = 0;
-	while (++i < num)
+	while (++i < src[0])
 		src[i] = src[i + 1];
 	i = dest[0] + 1;
 	while (--i > 0)
@@ -109,23 +102,22 @@ void	p_op(char *str, int **a, int **b)
 	dest[1] = swp;
 	dest[0] += 1;
 	src[0] -= 1;
-//	print_stack(*a, *b);
 }
 
 void	operation(char *str, int **a, int **b, t_list **moves)
 {
-		if (!ft_strncmp(str, "sa", 3) || !ft_strncmp(str, "sb", 3) ||
-				!ft_strncmp(str, "ss", 3))
-			s_op(str, a, b);
-		else if (!ft_strncmp(str, "pa", 3) || !ft_strncmp(str, "pb", 3))
-			p_op(str, a, b);
-		else if (!ft_strncmp(str, "ra", 3) || !ft_strncmp(str, "rb", 3) ||
-				!ft_strncmp(str, "rr", 3))
-			r_op(str, a, b);
-		else if (!ft_strncmp(str, "rra", 4) || !ft_strncmp(str, "rrb", 4) ||
-				!ft_strncmp(str, "rrr", 4))
-			rr_op(str, a, b);
-		else
-			return ;
-		ft_lstadd_back(moves, ft_lstnew(ft_strdup(str)));
+	if (!ft_strncmp(str, "sa", 3) || !ft_strncmp(str, "sb", 3)
+		|| !ft_strncmp(str, "ss", 3))
+		s_op(str, a, b);
+	else if (!ft_strncmp(str, "pa", 3) || !ft_strncmp(str, "pb", 3))
+		p_op(str, a, b);
+	else if (!ft_strncmp(str, "ra", 3) || !ft_strncmp(str, "rb", 3)
+		|| !ft_strncmp(str, "rr", 3))
+		r_op(str, a, b);
+	else if (!ft_strncmp(str, "rra", 4) || !ft_strncmp(str, "rrb", 4)
+		|| !ft_strncmp(str, "rrr", 4))
+		rr_op(str, a, b);
+	else
+		return ;
+	ft_lstadd_back(moves, ft_lstnew(ft_strdup(str)));
 }

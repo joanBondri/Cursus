@@ -1,15 +1,10 @@
-SRC1 = 	checker_folder/checker.c \
-		Utils/operations.c \
-		Utils/parser.c \
-		Utils/print_stack.c \
-
 OBJS1 = $(SRC1:.c=.o)
 
 NAME1 = checker
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I printf/Includes/ -I checker_folder/ -I Utils -I ./
+CFLAGS = -Wall -Wextra -Werror -fsanitizer=address -g3 -I printf/Includes/ -I checker_folder/ -I Utils -I ./
 RM = rm -rf
 
 .c.o :

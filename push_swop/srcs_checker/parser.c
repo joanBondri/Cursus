@@ -5,6 +5,7 @@ void	ft_exit(char *str, int fd)
 	ft_putendl_fd(str, fd);
 	exit(1);
 }
+
 void	check_args_part_two(int *tba, int *tbb)
 {
 	int	nbr;
@@ -41,7 +42,6 @@ void	check_args_part_one(char **argv, int argc)
 		{
 			if (!ft_strchr("-+0123456789", argv[i][j]))
 			{
-				printf("je suis le petit con qui fait tout beuguee : %s\n", argv[i]);
 				ft_exit(RED"wrong argument"RESET, 2);
 			}
 		}
@@ -73,11 +73,11 @@ void	assign_arr(int argc, char **argv, int **tba, int **tbb)
 	check_args_part_one(argv, argc);
 	if (argc < 1)
 		ft_exit(RED"too few argument"RESET, 1);
-	*tba = malloc(sizeof(int) * argc + 1);
-	*tbb = malloc(sizeof(int) * argc + 1);
+	*tba = malloc(sizeof(int) * (argc + 1));
+	*tbb = malloc(sizeof(int) * (argc + 1));
 	if (!(*tbb) || !(*tba))
 		ft_exit(RED"Malloc_error"RESET, 2);
-    count  = argc;
+	count = argc;
 	while (--count >= 0)
 		(*tba)[count + 1] = ft_atoi(argv[count]);
 	(*tba)[0] = argc;
