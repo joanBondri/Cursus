@@ -1,4 +1,4 @@
-#include "all_dep.h"
+#include "all_dep_bonus.h"
 
 void	ft_exit(char *str, int fd)
 {
@@ -23,7 +23,7 @@ void	check_args_part_two(int *tba, int *tbb)
 			{
 				free(tba);
 				free(tbb);
-				ft_exit(RED"same number twice"RESET, 2);
+				ft_exit(RED"Error"RESET, 2);
 			}
 		}
 	}
@@ -40,9 +40,9 @@ void	check_args_part_one(char **argv, int argc)
 		j = -1;
 		while (argv[i][++j])
 		{
-			if (!ft_strchr("-+0123456789", argv[i][j]))
+			if (!ft_strchr("-+0123456789\n\t\f\v ", argv[i][j]))
 			{
-				ft_exit(RED"wrong argument"RESET, 2);
+				ft_exit(RED"Error"RESET, 2);
 			}
 		}
 	}
@@ -53,7 +53,7 @@ void	special_input(char **argv, int **a, int **b)
 	char	**strs;
 	int		cpt;
 
-	strs = ft_split(argv[0], " ");
+	strs = ft_split(argv[0], " \t\n\f\v");
 	cpt = 0;
 	while (strs[cpt])
 		cpt++;
@@ -68,16 +68,22 @@ void	assign_arr(int argc, char **argv, int **tba, int **tbb)
 {
 	int		count;
 
-	if (argc == 1)
+	if (argc == 1 && ft_loop_strchr_or(argv[0], " \n\t\f\v"))
 		return (special_input(argv, tba, tbb));
 	check_args_part_one(argv, argc);
 	if (argc < 1)
-		ft_exit(RED"too few argument"RESET, 1);
+		ft_exit(RED"Error"RESET, 2);
 	*tba = malloc(sizeof(int) * (argc + 1));
 	*tbb = malloc(sizeof(int) * (argc + 1));
 	if (!(*tbb) || !(*tba))
-		ft_exit(RED"Malloc_error"RESET, 2);
+		ft_exit(RED"Error"RESET, 2);
 	count = argc;
+	while (--count >= 0)
+	{
+		if(ft_atoi_double(argv[count]) > INT_MAX
+			|| ft_atoi_double(argv[count]) < INT_MIN)
+			ft_exit(RED"Error"RESET, 2);
+	}
 	while (--count >= 0)
 		(*tba)[count + 1] = ft_atoi(argv[count]);
 	(*tba)[0] = argc;

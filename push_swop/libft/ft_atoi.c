@@ -30,6 +30,32 @@ int	*int_to_ptr(int i)
 	return (ptr);
 }
 
+double	ft_atoi_double(const char *str)
+{
+	int			i;
+	double		res;
+	int			sign;
+	char		*s;
+
+	s = (char *)str;
+	res = 0;
+	i = 0;
+	sign = 1;
+	while (is_white_space(s[i]))
+		i++;
+	if (s[i] == '+' || s[i] == '-')
+	{
+		if (s[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		res = res * 10 + s[i] - '0';
+		i++;
+	}
+	return ((double)sign * res);
+}
 int	ft_atoi(const char *str)
 {
 	int		i;

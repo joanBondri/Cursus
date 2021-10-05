@@ -1,4 +1,4 @@
-#include "all_dep.h"
+#include "all_dep_bonus.h"
 
 void	analyze_main(char *str, int **tba, int **tbb, t_flags flags)
 {
@@ -15,7 +15,7 @@ void	analyze_main(char *str, int **tba, int **tbb, t_flags flags)
 		rr_op(str, tba, tbb);
 	else
 	{
-		ft_putendl_fd(RED"unknown command"RESET, 2);
+		ft_putendl_fd(RED"Error"RESET, 2);
 		free(str);
 		str = NULL;
 		return ;
@@ -49,6 +49,8 @@ int	main(int argc, char **argv)
 	t_flags	flags;
 
 	flags.view = false;
+	if (argc == 1)
+		ft_exit(RED"Error"RESET, 0);
 	if (!ft_strncmp(argv[1], "-v", 3) || !ft_strncmp(argv[1], "--view", 7))
 	{
 		flags.view = true;

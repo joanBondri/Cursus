@@ -24,6 +24,10 @@ void	parser_str(t_list **a, char *argv)
 	--s;
 	while (*(++s))
 	{
+
+	}
+	while (*(++s))
+	{
 		if (!(*a))
 			*a = ft_lstnew(int_to_ptr(ft_pre_atoi(*s)));
 		else

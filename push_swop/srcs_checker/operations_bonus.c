@@ -1,4 +1,4 @@
-#include "all_dep.h"
+#include "all_dep_bonus.h"
 
 void	s_op(char *str, int **a, int **b)
 {

@@ -5,6 +5,6 @@
 # include <limits.h>
 # include <stdio.h>
 # include "../libft/libft.h"
-# include "utils.h"
-# include "checker.h"
+# include "utils_bonus.h"
+# include "checker_bonus.h"
 #endif

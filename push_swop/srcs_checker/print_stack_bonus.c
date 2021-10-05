@@ -1,4 +1,4 @@
-#include "all_dep.h"
+#include "all_dep_bonus.h"
 
 void	loop_print(int *a, int *b)
 {
@@ -26,13 +26,14 @@ void	loop_print(int *a, int *b)
 		else
 			printf("%10i|%10i|\n", a[i - pada], b[i - padb]);
 	}
-	usleep(50000);
+	usleep(200000);
 }
 
 void	print_stack(int *a, int *b)
 {
 	static int	index = 0;
 
+	(void)index;
 	printf("\033[2J\033[H#%i\n%10s|%10s|\n", ++index, "A", "B");
 	printf("%.22s\n", "___________________________");
 	loop_print(a, b);

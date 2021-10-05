@@ -23,11 +23,11 @@ if __name__ == "__main__":
 		print("\033[1;31mError:\033[0m checker does not exist (create executable first)")
 		exit(1)
 
-	for i in range(0, 50):
+	for i in range(0, 500):
 		numbers_generated_lst = ft_gen_numbers(0, i)
 		numbers_generated_str = ' '.join(map(str, numbers_generated_lst))
 
 		print(f'\033[1;36m# {i:3}\033[0m')
-		#os.system(f'./push_swap {numbers_generated_str} | wc -l | tr -d " " ')
-		print(f'\033[1;36m{numbers_generated_str}\033[0m')
+		os.system(f'./push_swap {numbers_generated_str} | wc -l | tr -d " " ')
+		#print(f'\033[1;36m{numbers_generated_str}\033[0m')
 		os.system(f'./push_swap {numbers_generated_str} | ./checker {numbers_generated_str}')

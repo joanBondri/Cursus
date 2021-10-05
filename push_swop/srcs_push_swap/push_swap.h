@@ -32,6 +32,10 @@ typedef struct s_couple
 	t_list	**b;
 }				t_couple;
 
+int		find_idx_max(t_list *lst);
+int		find_max(t_list *lst);
+bool	check_stack(t_list **a, t_list **b);
+void	algo10(t_list **a, t_list **b);
 void	ft_exit(char *str);
 int		ft_pre_atoi(char *s);
 void	print_stack(t_list *a, t_list *b);

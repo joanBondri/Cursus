@@ -1,13 +1,15 @@
-SRC1 = 	srcs_checker/checker.c \
-		srcs_checker/operations.c \
-		srcs_checker/parser.c \
-		srcs_checker/print_stack.c \
+SRC1 = 	srcs_checker/checker_bonus.c \
+		srcs_checker/operations_bonus.c \
+		srcs_checker/parser_bonus.c \
+		srcs_checker/print_stack_bonus.c \
 
 SRC2 =	srcs_push_swap/main.c \
 		srcs_push_swap/convert.c \
 		srcs_push_swap/basic_moves.c \
 		srcs_push_swap/parser.c \
 		srcs_push_swap/partition.c \
+		srcs_push_swap/algo10.c \
+		srcs_push_swap/algo2.c \
 		srcs_push_swap/algo.c \
 		srcs_push_swap/useful_func.c \
 		srcs_push_swap/opti.c \
@@ -32,9 +34,9 @@ RM = rm -rf
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
-all: $(NAME1) $(NAME2)
+all: $(NAME2)
 
-$(NAME1): $(OBJS1)
+bonus: $(OBJS1)
 	make -C libft
 	$(CC)  $(OBJS1) $(LIBFT) -o $(NAME1) $(CFLAGS)
 
