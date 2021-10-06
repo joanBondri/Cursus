@@ -25,14 +25,14 @@ int	main(int argc, char **argv)
 	int		pid;
 	int		i;
 
-	if (argc < 3)
+	if (argc < 3 || argc > 3 || !ft_loop_strchr("0123456789", argv[1]))
 	{
-		printf("\033[31mERROR\033[m : Too few arguments\n");
-		return (1);
-	}
-	if (argc > 3)
-	{
-		printf("\033[31mERROR\033[m : Too many arguments\n");
+		if (argc < 3)
+			printf("\033[31mERROR\033[m : Too few arguments\n");
+		else if (argc > 3)
+			printf("\033[31mERROR\033[m : Too many arguments\n");
+		else
+			printf("\033[31mERROR\033[m : Wrong PID\n");
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
