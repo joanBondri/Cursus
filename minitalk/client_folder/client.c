@@ -40,7 +40,6 @@ int	main(int argc, char **argv)
 	i = -1;
 	while (s[++i])
 		push_char(s[i], pid);
-	push_char('\n', pid);
 	(void)argc;
 	return (0);
 }
