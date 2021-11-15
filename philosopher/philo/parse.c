@@ -90,5 +90,6 @@ int parser(int argc, char **argv, t_data_philo *data)
 	platons = malloc(sizeof(t_sophe) * data->size);
 	if (!platons || init_lst_philos(&platons, data->size))
 		return (1);
+	data->tb = platons;
 	return (0);
 }
