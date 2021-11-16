@@ -50,9 +50,13 @@ bool	init_lst_philos(t_sophe **weil, int size)
 	alain[0].forch_left = malloc(sizeof(pthread_mutex_t) * 1);
 	if (!alain[0].forch_left)
 		return (true);
+	pthread_mutex_init(alain[0].forch_left, NULL);
 	while (++i < size)
 	{
 		alain[i].id = i + 1;
+		alain[i].th = malloc(sizeof(pthread_t) * 1);
+		if (!alain[i].th)
+			return (true);
 		alain[i].last_sleep = now;
 		if (i != 0)
 			alain[i].forch_left = alain[i - 1].forch_right;
@@ -61,9 +65,10 @@ bool	init_lst_philos(t_sophe **weil, int size)
 			alain[i].forch_right = malloc(sizeof(pthread_mutex_t) * 1);
 			if (!alain[i].forch_right)
 				return (true);
+			pthread_mutex_init(alain[i].forch_right, NULL);
 		}
 	}
-	alain[size - 1].forch_right = alain[0].forch_left;
+	alain[size - 1].forch_right = alain[i].forch_left;
 	return (false);
 }
 

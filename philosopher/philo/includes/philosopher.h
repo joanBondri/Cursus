@@ -14,6 +14,7 @@ typedef struct	s_sophe
 {
 	int				id;
 	long			last_sleep;
+	pthread_t		*th;
 	pthread_mutex_t	*forch_left;
 	pthread_mutex_t	*forch_right;
 }				t_sophe;

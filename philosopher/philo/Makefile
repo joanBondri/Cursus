@@ -1,20 +1,27 @@
-SRC = 		main.c\
-			parse.c\
+SRC = main.c \
+	  parse.c \
+	  algo_func.c \
 
-OBJS = $(SRC:.c=.o)
+SRCSDIR = srcs
+
+OBJDIR = $(SRCSDIR)/objects
+
+SRCS = ${SRC:%.c=$(SRCSDIR)/%.c}
+
+OBJS = $(SRCS:%.c=%.o)
 
 NAME = philo
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I./
+CFLAGS = -Wall -Wextra -Werror -I./includes/
 RM = rm -rf
 
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) 
+	$(CC) -o $(NAME) $(OBJS)
 
 all: $(NAME)
 
