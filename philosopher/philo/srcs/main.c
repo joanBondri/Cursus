@@ -14,5 +14,6 @@ int	main(int argc, char **argv)
 		print_error();
 		return (1);
 	}
+	algo(&data);
 	return (0);	
 }

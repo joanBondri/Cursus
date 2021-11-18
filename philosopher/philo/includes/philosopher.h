@@ -21,13 +21,25 @@ typedef struct	s_sophe
 
 typedef struct	s_data_philo
 {
+	t_sophe			*one_death;
 	int				size;
 	int				loop;
 	int				sleep;
 	int				eat;
 	int				die;
 	t_sophe			*tb;
+	pthread_mutex_t	speak_right;
 }				t_data_philo;
 
+typedef struct	s_data_and_philo
+{
+	t_sophe			*guy;
+	t_data_philo	*data;
+}				t_data_and_philo;
+
 int parser(int argc, char **argv, t_data_philo *data);
+void	print_txt(long time, int id, char *str, pthread_mutex_t *mtx);
+long	get_time_mili(void);
+int		algo(t_data_philo *data);
+
 #endif

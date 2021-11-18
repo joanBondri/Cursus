@@ -15,13 +15,16 @@ NAME = philo
 CC = clang
 
 CFLAGS = -Wall -Wextra -Werror -I./includes/
+
+CFLAGS2 = -lpthread
+
 RM = rm -rf
 
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(OBJS)
+	$(CC) -o $(NAME) $(OBJS) $(CFLAGS2)
 
 all: $(NAME)
 
