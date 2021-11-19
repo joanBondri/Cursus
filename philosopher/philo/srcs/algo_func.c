@@ -22,22 +22,36 @@ bool	check_death(t_data_philo *data)
 	return (false);
 }
 
+void	ft_usleep(int sleep)
+{
+	long	now;
+	long	current;
+
+	now = get_time_mili();
+
+	while (now + sleep > current)
+	{
+		usleep(10);
+		current = get_time_mili();
+	}
+}
+
 int		sleep_and_check(int sleep, t_data_philo *data, t_sophe *guy, char *str)
 {
 	int		rest;
 	int		time;
 
 	print_txt(get_time_mili(), guy->id, str, &(data->speak_right));
-	time = sleep / 10;
-	rest = sleep % 10;
+	time = sleep * 1000 / 200;
+	rest = (sleep * 1000) % 200;
 
 	while (time--)
 	{
-		usleep(10);
+		ft_usleep(200);
 		if (check_death(data))
 			return (1);
 	}
-	usleep(rest);
+	ft_usleep(rest);
 	if (check_death(data))
 		return (1);
 	return (0);
