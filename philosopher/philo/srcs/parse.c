@@ -38,7 +38,7 @@ long	get_time_mili(void)
 	return (current_time.tv_sec * 1000 + current_time.tv_usec);
 }
 
-bool	init_lst_philos(t_sophe **weil, int size, bool *gota, pthread_mutex_t *sr)
+bool	init_lst_philos(t_sophe **weil, int size, t_mini_data *yp)
 {
 	int			i;
 	t_sophe		*alain;
@@ -54,9 +54,8 @@ bool	init_lst_philos(t_sophe **weil, int size, bool *gota, pthread_mutex_t *sr)
 	while (++i < size)
 	{
 		alain[i].loop = 0;
-		alain[i].speak_right = sr;
 		alain[i].id = i + 1;
-		alain[i].is_end = gota;
+		alain[i].mini_data = yp;
 		alain[i].th = malloc(sizeof(pthread_t) * 1);
 		if (!alain[i].th)
 			return (true);
@@ -93,13 +92,12 @@ int parser(int argc, char **argv, t_data_philo *data)
 			return (1);
 		tb[i - 1] = (int)res;
 	}
-	*data = (t_data_philo){.size = tb[0], .die = tb[1],
-		.eat = tb[2], .sleep = tb[3], .loop = tb[4]};
+	*data = (t_data_philo){.size = tb[0], .mini_data = {.die = tb[1],
+		.eat = tb[2], .sleep = tb[3], .is_end = false}, .loop = tb[4]};
 	platons = malloc(sizeof(t_sophe) * data->size);
-	pthread_mutex_init(&(data->speak_right), NULL);
-	if (!platons || init_lst_philos(&platons, data->size, &(data->is_end), &(data->speak_right)))
+	pthread_mutex_init(&(data->mini_data.speak_right), NULL);
+	if (!platons || init_lst_philos(&platons, data->size, &(data->mini_data)))
 		return (1);
-	data->is_end = false;
 	data->tb = platons;
 	data->one_death = NULL;
 	return (0);

@@ -67,14 +67,14 @@ int		sleep_and_check(int sleep, t_sophe *guy, char *str)
 	return (0);
 }
 
-void	take_forch(t_sophe *guy, t_data_philo *data, int id)
+void	take_forch(t_sophe *guy, int id)
 {
 	if (id % 2)
 		pthread_mutex_lock(guy->forch_left);
 	else
 		pthread_mutex_lock(guy->forch_right);
 	print_txt(get_time_mili(), guy->id, "has taken a forch",
-		   	&(data->speak_right));
+		   	&(guy->mini_data->speak_right));
 }
 
 void	print_txt(long time, int id, char *str, pthread_mutex_t *mtx)
@@ -86,26 +86,26 @@ void	print_txt(long time, int id, char *str, pthread_mutex_t *mtx)
 
 void	*routine_th(void *data)
 {
-	t_data_and_philo	*one;
+	t_sophe		*guy;
 	int	i = -1;
 
-	one = (t_data_and_philo*)data;
+	guy = (t_sophe*)data;
 	while (true)
 	{
 		printf("time %i\n", ++i);
-		if (check_death(one->data))
+		if (guy->mini_data->is_end)
 			return (NULL);
-		take_forch(one->guy, one->data, one->guy->id);
-		if (check_death(one->data))
+		take_forch(guy, guy->id);
+		if (guy->mini_data->is_end)
 			return (NULL);
-		take_forch(one->guy, one->data, one->guy->id + 1);
-		if (sleep_and_check(one->data->eat, one->data, one->guy, "is eating"))
+		take_forch(guy, guy->id + 1);
+		if (sleep_and_check(guy->mini_data->eat, guy, "is eating"))
 			return (NULL);
-		pthread_mutex_unlock(one->guy->forch_left);
-		pthread_mutex_unlock(one->guy->forch_right);
-		if (sleep_and_check(one->data->sleep, one->data, one->guy, "is sleeping"))
+		pthread_mutex_unlock(guy->forch_left);
+		pthread_mutex_unlock(guy->forch_right);
+		if (sleep_and_check(guy->mini_data->sleep, guy, "is sleeping"))
 			return (NULL);
-		if (sleep_and_check(1, one->data, one->guy, "is thinking"))
+		if (sleep_and_check(1, guy, "is thinking"))
 			return (NULL);
 	}
 	return (NULL);
@@ -116,15 +116,12 @@ int		algo(t_data_philo *data)
 	int					size;
 	int					i;
 	t_sophe				*la_boetie;
-	t_data_and_philo	one;
 
 	size = data->size;
 	la_boetie = data->tb;
 	i = -1;
 	while (++i < size)
 	{
-		one.data = data;
-		one.guy = la_boetie + i;
 		pthread_create(la_boetie[i].th, NULL, routine_th, &one);
 	}
 	i = -1;
