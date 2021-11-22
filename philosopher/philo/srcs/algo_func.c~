@@ -139,13 +139,15 @@ int		algo(t_data_philo *data)
 	i = -1;
 	data->mini_data.start = get_time_mili();
 	while (++i < size)
+	{
 		pthread_create(la_boetie[i].th, NULL, routine_th, la_boetie + i);
+	}
 	pthread_create(&ah, NULL, narrator, data);
 	pthread_join(ah, NULL);
 	i = -1;
 	while (++i < size)
 		pthread_join(la_boetie[i].th[0], NULL);
-	printf(RED"%li ms %i died\n"RESET, get_time_mili_prog(data->mini_data.start), data->one_death->id);
+	printf("%li ms %i died", get_time_mili_prog(data->mini_data.start), data->one_death->id);
 	while (size--)
 		pthread_mutex_destroy(la_boetie[size].forch_left);
 	return (0);

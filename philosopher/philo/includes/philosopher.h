@@ -1,5 +1,6 @@
 #ifndef PHILOSOPHER_H
 # define PHILOSOPHER_H
+# include "ansicode.h"
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
@@ -16,6 +17,7 @@ typedef struct	s_mini_data
 	int				eat;
 	int				die;
 	bool			is_end;
+	long			start;
 	pthread_mutex_t	speak_right;
 }				t_mini_data;
 
