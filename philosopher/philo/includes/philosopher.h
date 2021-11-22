@@ -13,8 +13,11 @@
 typedef struct	s_sophe
 {
 	int				id;
+	int				loop;
+	bool			*is_end;
 	long			last_sleep;
 	pthread_t		*th;
+	pthread_mutex_t	*speak_right;
 	pthread_mutex_t	*forch_left;
 	pthread_mutex_t	*forch_right;
 }				t_sophe;
@@ -28,6 +31,7 @@ typedef struct	s_data_philo
 	int				eat;
 	int				die;
 	t_sophe			*tb;
+	bool			is_end;
 	pthread_mutex_t	speak_right;
 }				t_data_philo;
 

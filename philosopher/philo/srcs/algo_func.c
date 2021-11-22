@@ -19,6 +19,16 @@ bool	check_death(t_data_philo *data)
 			return (true);
 		}
 	}
+	if (data->loop > 0)
+	{
+		size = data->size;
+		while (size--)
+		{
+			if (hume[size].loop < data.loop)
+				return (false);
+		}
+		return (true);
+	}
 	return (false);
 }
 
@@ -36,23 +46,23 @@ void	ft_usleep(int sleep)
 	}
 }
 
-int		sleep_and_check(int sleep, t_data_philo *data, t_sophe *guy, char *str)
+int		sleep_and_check(int sleep, t_sophe *guy, char *str)
 {
 	int		rest;
 	int		time;
 
-	print_txt(get_time_mili(), guy->id, str, &(data->speak_right));
+	print_txt(get_time_mili(), guy->id, str, guy->speak_right);
 	time = sleep * 1000 / 200;
 	rest = (sleep * 1000) % 200;
 
 	while (time--)
 	{
 		ft_usleep(200);
-		if (check_death(data))
+		if (*(guy->is_end))
 			return (1);
 	}
 	ft_usleep(rest);
-	if (check_death(data))
+	if (*(guy->is_end))
 		return (1);
 	return (0);
 }
