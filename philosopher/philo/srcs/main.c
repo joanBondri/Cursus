@@ -7,13 +7,20 @@ void	print_error(void)
 
 int	main(int argc, char **argv)
 {
-	t_data_philo	data;
+	t_data_philo	*data;
 
-	if (parser(argc, argv, &data))
+	data = malloc(sizeof(t_data_philo) * 1);
+	if (!data)
 	{
+		print_error();
+		return (0);
+	}
+	if (parser(argc, argv, data))
+	{
+		free(data);
 		print_error();
 		return (1);
 	}
-	algo(&data);
+	algo(data);
 	return (0);	
 }

@@ -2,7 +2,7 @@
 
 long	get_time_mili_prog(long time)
 {
-	return (get_time_mili() - time);
+	return ((get_time_mili() - time) / 10);
 }
 
 bool	check_death(t_data_philo *data)
@@ -18,6 +18,7 @@ bool	check_death(t_data_philo *data)
 	size = data->size;
 	while (size--)
 	{
+		printf("");
 		if (hume[size].last_sleep - now > data->mini_data.die)
 		{
 			data->one_death = hume + size;
@@ -74,10 +75,18 @@ int		sleep_and_check(int sleep, t_sophe *guy, char *str)
 
 void	take_forch(t_sophe *guy, int id)
 {
+	if (guy->mini_data->is_end)
+		return ;
 	if (id % 2)
 		pthread_mutex_lock(guy->forch_left);
 	else
 		pthread_mutex_lock(guy->forch_right);
+	if (guy->mini_data->is_end)
+	{
+		pthread_mutex_unlock(guy->forch_right);
+		pthread_mutex_unlock(guy->forch_left);
+		return ;
+	}
 	print_txt(get_time_mili_prog(guy->mini_data->start), guy->id,
 			CYN"has taken a forch"RESET, &(guy->mini_data->speak_right));
 }
@@ -99,9 +108,9 @@ void	*routine_th(void *data)
 		if (guy->mini_data->is_end)
 			return (NULL);
 		take_forch(guy, guy->id);
+		take_forch(guy, guy->id + 1);
 		if (guy->mini_data->is_end)
 			return (NULL);
-		take_forch(guy, guy->id + 1);
 		if (sleep_and_check(guy->mini_data->eat, guy, RED"is eating"RESET))
 			return (NULL);
 		pthread_mutex_unlock(guy->forch_left);
@@ -114,6 +123,12 @@ void	*routine_th(void *data)
 	return (NULL);
 }
 
+void	unlock_all_forch(int size, t_sophe *tb)
+{
+	while (size--)
+		pthread_mutex_unlock(tb[size].forch_left);
+}
+
 void	*narrator(void *data)
 {
 	t_data_philo	*yop;
@@ -123,8 +138,17 @@ void	*narrator(void *data)
 	{
 		yop->mini_data.is_end = check_death(yop);
 		if (yop->mini_data.is_end)
+		{
+			unlock_all_forch(yop->size, yop->tb);
 			return (NULL);
+		}
 	}
+}
+
+void	free_all_stuffs(t_data_philo **data)
+{
+	//free(*(data)->tb);
+	free(*data);
 }
 
 int		algo(t_data_philo *data)
@@ -145,8 +169,12 @@ int		algo(t_data_philo *data)
 	i = -1;
 	while (++i < size)
 		pthread_join(la_boetie[i].th[0], NULL);
-	printf(RED"%li ms %i died\n"RESET, get_time_mili_prog(data->mini_data.start), data->one_death->id);
+	if (data->one_death)
+		printf(RED"%li ms %i died\n"RESET, get_time_mili_prog(data->mini_data.start), data->one_death->id);
+	else
+		printf(GRN"All philosophers eats enought\n"RESET);
 	while (size--)
 		pthread_mutex_destroy(la_boetie[size].forch_left);
+	free_all_stuffs(&data);
 	return (0);
 }
