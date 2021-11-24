@@ -5,7 +5,7 @@ long	get_time_mili_prog(long time)
 	long	get;
 
 	get = get_time_mili();
-	printf("time = %li and get = %li\n", time, get);
+	//printf("time = %li and get = %li\n", time, get);
 	return ((get - time));
 }
 
@@ -18,11 +18,11 @@ bool	check_death(t_data_philo *data)
 	if (data->one_death)
 		return (true);
 	now = get_time_mili();
-	hume = data->tb;
+	hume = (data->tb);
 	size = data->size;
 	while (size--)
 	{
-		if (hume[size].last_eat - now > data->mini_data.die)
+		if (now - hume[size].last_eat > data->mini_data.die)
 		{
 			data->one_death = hume + size;
 			return (true);
@@ -50,27 +50,32 @@ void	ft_usleep(int sleep)
 	current = now;
 	while (now + sleep > current)
 	{
-		usleep(10);
+		usleep(25);
 		current = get_time_mili();
 	}
 }
 
-int		sleep_and_check(int sleep, t_sophe *guy, char *str)
+int		sleep_and_check(int sleep, t_sophe *guy, char *str, int know)
 {
 	long	rest;
 	long	time;
 
 	print_txt(get_time_mili_prog(guy->mini_data->start), guy->id, str, &(guy->mini_data->speak_right));
+	if (know == EAT)
+	{
+		guy->last_eat = get_time_mili();
+		guy->loop += 1;
+	}
 	time = sleep / 5;
 	rest = sleep % 5;
 
 	while (time--)
 	{
-		ft_usleep(5 * 1000);
+		ft_usleep(5);
 		if (guy->mini_data->is_end)
 			return (1);
 	}
-	ft_usleep(rest * 1000);
+	ft_usleep(rest);
 		if (guy->mini_data->is_end)
 			return (1);
 	return (0);
@@ -91,11 +96,12 @@ void	take_forch(t_sophe *guy, int id)
 		return ;
 	}
 	print_txt(get_time_mili_prog(guy->mini_data->start), guy->id,
-			CYN"has taken a forch"RESET, &(guy->mini_data->speak_right));
+			CYN"has taken a forck"RESET, &(guy->mini_data->speak_right));
 }
 
 void	print_txt(long time, int id, char *str, pthread_mutex_t *mtx)
 {
+	(void)mtx;
 	pthread_mutex_lock(mtx);
 	printf("%li ms %i %s\n", time, id, str);
 	pthread_mutex_unlock(mtx);
@@ -116,14 +122,14 @@ void	*routine_th(void *data)
 		if (guy->mini_data->is_end)
 			return (NULL);
 		now = get_time_mili();
-		if (sleep_and_check(guy->mini_data->eat, guy, RED"is eating"RESET))
+		if (sleep_and_check(guy->mini_data->eat, guy, RED"is eating"RESET, EAT))
 			return (NULL);
 		guy->last_eat = now;
 		pthread_mutex_unlock(guy->forch_left);
 		pthread_mutex_unlock(guy->forch_right);
-		if (sleep_and_check(guy->mini_data->sleep, guy, BLU"is sleeping"RESET))
+		if (sleep_and_check(guy->mini_data->sleep, guy, BLU"is sleeping"RESET, 0))
 			return (NULL);
-		if (sleep_and_check(0, guy, MAG"is thinking"RESET))
+		if (sleep_and_check(0, guy, MAG"is thinking"RESET, 0))
 			return (NULL);
 	}
 	return (NULL);
@@ -145,22 +151,10 @@ void	*narrator(void *data)
 		yop->mini_data.is_end = check_death(yop);
 		if (yop->mini_data.is_end)
 		{
-			unlock_all_forch(yop->size, yop->tb);
+			unlock_all_forch(yop->size, (yop->tb));
 			return (NULL);
 		}
 	}
-}
-
-void	free_all_stuffs(t_data_philo **data)
-{
-	t_sophe			*salut;
-	t_data_philo	*yop;
-
-	yop = *data;
-	salut = yop->tb;
-	printf("data = %p quand de son cote *data = %p, tb = %p", data, yop, salut);
-	free(salut);
-	free(*data);
 }
 
 int		algo(t_data_philo *data)
@@ -171,7 +165,7 @@ int		algo(t_data_philo *data)
 	t_sophe				*la_boetie;
 
 	size = data->size;
-	la_boetie = data->tb;
+	la_boetie = (data->tb);
 	i = -1;
 	data->mini_data.start = get_time_mili();
 	while (++i < size)
@@ -184,9 +178,8 @@ int		algo(t_data_philo *data)
 	if (data->one_death)
 		printf(RED"%li ms %i died\n"RESET, get_time_mili_prog(data->mini_data.start), data->one_death->id);
 	else
-		printf(GRN"All philosophers eats enought\n"RESET);
+		printf(GRN"All philosophers has eat %i times\n"RESET, data->loop);
 	while (size--)
 		pthread_mutex_destroy(la_boetie[size].forch_left);
-	//free_all_stuffs(&data);
 	return (0);
 }

@@ -9,7 +9,6 @@ int	main(int argc, char **argv)
 {
 	t_data_philo	*data;
 
-	printf("ho oui dis moi oui\n");
 	data = malloc(sizeof(t_data_philo) * 1);
 	if (!data)
 	{
@@ -23,5 +22,12 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	algo(data);
+	while (data->size--)
+	{
+		free(data->tb[data->size].th);
+		free(data->tb[data->size].forch_right);
+	}
+	free(data->tb);
+	free(data);
 	return (0);	
 }
