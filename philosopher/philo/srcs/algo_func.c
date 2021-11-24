@@ -2,7 +2,11 @@
 
 long	get_time_mili_prog(long time)
 {
-	return ((get_time_mili() - time) / 10);
+	long	get;
+
+	get = get_time_mili();
+	printf("time = %li and get = %li\n", time, get);
+	return ((get - time));
 }
 
 bool	check_death(t_data_philo *data)
@@ -18,8 +22,7 @@ bool	check_death(t_data_philo *data)
 	size = data->size;
 	while (size--)
 	{
-		printf("");
-		if (hume[size].last_sleep - now > data->mini_data.die)
+		if (hume[size].last_eat - now > data->mini_data.die)
 		{
 			data->one_death = hume + size;
 			return (true);
@@ -54,20 +57,20 @@ void	ft_usleep(int sleep)
 
 int		sleep_and_check(int sleep, t_sophe *guy, char *str)
 {
-	int		rest;
-	int		time;
+	long	rest;
+	long	time;
 
 	print_txt(get_time_mili_prog(guy->mini_data->start), guy->id, str, &(guy->mini_data->speak_right));
-	time = sleep * 1000 / 200;
-	rest = (sleep * 1000) % 200;
+	time = sleep / 5;
+	rest = sleep % 5;
 
 	while (time--)
 	{
-		ft_usleep(200);
+		ft_usleep(5 * 1000);
 		if (guy->mini_data->is_end)
 			return (1);
 	}
-	ft_usleep(rest);
+	ft_usleep(rest * 1000);
 		if (guy->mini_data->is_end)
 			return (1);
 	return (0);
@@ -101,6 +104,7 @@ void	print_txt(long time, int id, char *str, pthread_mutex_t *mtx)
 void	*routine_th(void *data)
 {
 	t_sophe		*guy;
+	long		now;
 
 	guy = (t_sophe*)data;
 	while (true)
@@ -111,8 +115,10 @@ void	*routine_th(void *data)
 		take_forch(guy, guy->id + 1);
 		if (guy->mini_data->is_end)
 			return (NULL);
+		now = get_time_mili();
 		if (sleep_and_check(guy->mini_data->eat, guy, RED"is eating"RESET))
 			return (NULL);
+		guy->last_eat = now;
 		pthread_mutex_unlock(guy->forch_left);
 		pthread_mutex_unlock(guy->forch_right);
 		if (sleep_and_check(guy->mini_data->sleep, guy, BLU"is sleeping"RESET))
@@ -147,7 +153,13 @@ void	*narrator(void *data)
 
 void	free_all_stuffs(t_data_philo **data)
 {
-	//free(*(data)->tb);
+	t_sophe			*salut;
+	t_data_philo	*yop;
+
+	yop = *data;
+	salut = yop->tb;
+	printf("data = %p quand de son cote *data = %p, tb = %p", data, yop, salut);
+	free(salut);
 	free(*data);
 }
 
@@ -175,6 +187,6 @@ int		algo(t_data_philo *data)
 		printf(GRN"All philosophers eats enought\n"RESET);
 	while (size--)
 		pthread_mutex_destroy(la_boetie[size].forch_left);
-	free_all_stuffs(&data);
+	//free_all_stuffs(&data);
 	return (0);
 }

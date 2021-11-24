@@ -9,6 +9,7 @@ int	main(int argc, char **argv)
 {
 	t_data_philo	*data;
 
+	printf("ho oui dis moi oui\n");
 	data = malloc(sizeof(t_data_philo) * 1);
 	if (!data)
 	{

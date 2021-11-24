@@ -35,7 +35,7 @@ long	get_time_mili(void)
 	struct timeval current_time;
 	
 	gettimeofday(&current_time, NULL);	
-	return (current_time.tv_sec * 1000 + current_time.tv_usec);
+	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
 }
 
 bool	init_lst_philos(t_sophe **weil, int size, t_mini_data *yp)
@@ -59,7 +59,7 @@ bool	init_lst_philos(t_sophe **weil, int size, t_mini_data *yp)
 		alain[i].th = malloc(sizeof(pthread_t) * 1);
 		if (!alain[i].th)
 			return (true);
-		alain[i].last_sleep = now;
+		alain[i].last_eat = now;
 		if (i != 0)
 			alain[i].forch_left = alain[i - 1].forch_right;
 		if (i != size - 1)
@@ -78,7 +78,7 @@ int parser(int argc, char **argv, t_data_philo *data)
 {
 	int				i;
 	long			res;
-	static int		tb[5] = {};
+	static long		tb[5] = {};
 	t_sophe			*platons;
 
 	if (argc != 5 && argc != 6)
@@ -90,10 +90,10 @@ int parser(int argc, char **argv, t_data_philo *data)
 		res = ft_atoi_long(argv[i]);
 		if (!is_only_digit(argv[i]) || res > INT_MAX || res < 1)
 			return (1);
-		tb[i - 1] = (int)res;
+		tb[i - 1] = res;
 	}
 	*data = (t_data_philo){.size = tb[0], .mini_data = {.die = tb[1],
-		.eat = tb[2], .sleep = tb[3], .is_end = false}, .loop = tb[4]};
+		.eat = tb[2], .sleep = tb[3], .is_end = false}, .loop = (int)tb[4]};
 	platons = malloc(sizeof(t_sophe) * data->size);
 	pthread_mutex_init(&(data->mini_data.speak_right), NULL);
 	if (!platons || init_lst_philos(&platons, data->size, &(data->mini_data)))

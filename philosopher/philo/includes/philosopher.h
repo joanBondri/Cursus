@@ -13,9 +13,9 @@
 
 typedef struct	s_mini_data
 {
-	int				sleep;
-	int				eat;
-	int				die;
+	long			sleep;
+	long			eat;
+	long			die;
 	bool			is_end;
 	long			start;
 	pthread_mutex_t	speak_right;
@@ -25,7 +25,7 @@ typedef struct	s_sophe
 {
 	int				id;
 	int				loop;
-	long			last_sleep;
+	long			last_eat;
 	pthread_t		*th;
 	t_mini_data		*mini_data;
 	pthread_mutex_t	*forch_left;
