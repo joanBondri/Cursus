@@ -28,7 +28,6 @@ typedef struct	s_sophe
 	int				loop;
 	long			last_eat;
 	pthread_t		*th;
-	pthread_t		th_death;
 	t_mini_data		*mini_data;
 	pthread_mutex_t	*forch_left;
 	pthread_mutex_t	*forch_right;

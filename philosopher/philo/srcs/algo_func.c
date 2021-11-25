@@ -55,16 +55,18 @@ void	ft_usleep(int sleep)
 	}
 }
 
-int		sleep_and_check(int sleep, t_sophe *guy, char *str, int know)
+int		sleep_and_check(int sleep, t_sophe *marx, char *str, int know)
 {
 	long	rest;
 	long	time;
 
-	print_txt(get_time_mili_prog(guy->mini_data->start), guy->id, str, &(guy->mini_data->speak_right));
+	print_txt(get_time_mili_prog(marx->mini_data->start), marx->id, str, marx);
+	if (marx->mini_data->is_end)
+		return (1);
 	if (know == EAT)
 	{
-		guy->last_eat = get_time_mili();
-		guy->loop += 1;
+		marx->last_eat = get_time_mili();
+		marx->loop += 1;
 	}
 	time = sleep / 5;
 	rest = sleep % 5;
@@ -72,86 +74,89 @@ int		sleep_and_check(int sleep, t_sophe *guy, char *str, int know)
 	while (time--)
 	{
 		ft_usleep(5);
-		if (guy->mini_data->is_end)
+		if (marx->mini_data->is_end)
 			return (1);
 	}
 	ft_usleep(rest);
-		if (guy->mini_data->is_end)
+		if (marx->mini_data->is_end)
 			return (1);
 	return (0);
 }
 
-void	take_forch(t_sophe *guy, int id)
+void	take_forch(t_sophe *arendt, int id)
 {
-	if (guy->mini_data->is_end)
+	if (arendt->mini_data->is_end)
 		return ;
 	if (id % 2)
-		pthread_mutex_lock(guy->forch_left);
+		pthread_mutex_lock(arendt->forch_left);
 	else
-		pthread_mutex_lock(guy->forch_right);
-	if (guy->mini_data->is_end)
+		pthread_mutex_lock(arendt->forch_right);
+	if (arendt->mini_data->is_end)
 	{
-		pthread_mutex_unlock(guy->forch_right);
-		pthread_mutex_unlock(guy->forch_left);
+		pthread_mutex_unlock(arendt->forch_right);
+		pthread_mutex_unlock(arendt->forch_left);
 		return ;
 	}
-	print_txt(get_time_mili_prog(guy->mini_data->start), guy->id,
-			CYN"has taken a forck"RESET, &(guy->mini_data->speak_right));
+	print_txt(get_time_mili_prog(arendt->mini_data->start), arendt->id,
+			CYN"has taken a forck"RESET, &(arendt->mini_data->speak_right));
 }
 
-void	print_txt(long time, int id, char *str, pthread_mutex_t *mtx)
+void	print_txt(long time, int id, char *str, t_sophe *guy)
 {
-	(void)mtx;
-	pthread_mutex_lock(mtx);
+	pthread_mutex_lock(guy->mini_data->mtx);
+	if (guy->mini_data->is_end)
+		return ;
 	printf("%li ms %i %s\n", time, id, str);
-	pthread_mutex_unlock(mtx);
+	pthread_mutex_unlock(guy->mini_data->mtx);
 }
 
 void	*routine_th(void *data)
 {
-	t_sophe		*guy;
+	t_sophe		*kant;
 	long		now;
 
-	guy = (t_sophe*)data;
+	kant = (t_sophe*)data;
 	while (true)
 	{
-		if (guy->mini_data->is_end)
+		if (kant->mini_data->is_end)
 			return (NULL);
-		take_forch(guy, guy->id);
-		take_forch(guy, guy->id + 1);
-		if (guy->mini_data->is_end)
+		take_forch(kant, kant->id);
+		take_forch(kant, kant->id + 1);
+		if (kant->mini_data->is_end)
 			return (NULL);
 		now = get_time_mili();
-		if (sleep_and_check(guy->mini_data->eat, guy, RED"is eating"RESET, EAT))
+		if (sleep_and_check(kant->mini_data->eat, kant, RED"is eating"RESET, EAT))
 			return (NULL);
-		guy->last_eat = now;
-		pthread_mutex_unlock(guy->forch_left);
-		pthread_mutex_unlock(guy->forch_right);
-		if (sleep_and_check(guy->mini_data->sleep, guy, BLU"is sleeping"RESET, 0))
+		kant->last_eat = now;
+		pthread_mutex_unlock(kant->forch_left);
+		pthread_mutex_unlock(kant->forch_right);
+		if (sleep_and_check(kant->mini_data->sleep, kant, BLU"is sleeping"RESET, 0))
 			return (NULL);
-		if (sleep_and_check(0, guy, MAG"is thinking"RESET, 0))
+		if (sleep_and_check(0, kant, MAG"is thinking"RESET, 0))
 			return (NULL);
 	}
 	return (NULL);
 }
 
-void	unlock_all_forch(int size, t_sophe *tb)
+void	unlock_all_forch(int size, t_sophe *descartes)
 {
 	while (size--)
-		pthread_mutex_unlock(tb[size].forch_left);
+		pthread_mutex_unlock(descartes[size].forch_left);
 }
 
 void	*narrator(void *data)
 {
-	t_data_philo	*yop;
+	t_data_philo	*camus;
 
-	yop = (t_data_philo*)data;
+	camus = (t_data_philo*)data;
 	while (true)
 	{
-		yop->mini_data.is_end = check_death(yop);
-		if (yop->mini_data.is_end)
+		camus->mini_data.is_end = check_death(camus);
+		if (camus->mini_data.is_end)
 		{
-			unlock_all_forch(yop->size, (yop->tb));
+			pthread_mutex_lock(&(camus->mini_data.speak_right));
+			pthread_mutex_unlock(&(camus->mini_data.speak_right));
+			unlock_all_forch(camus->size, (camus->tb));
 			return (NULL);
 		}
 	}

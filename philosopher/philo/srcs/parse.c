@@ -68,7 +68,6 @@ bool	init_lst_philos(t_sophe **weil, int size, t_mini_data *yp)
 			if (!alain[i].forch_right)
 				return (true);
 			pthread_mutex_init(alain[i].forch_right, NULL);
-			pthread_mutex_init(&(alain[i].th_death), NULL);
 		}
 	}
 	alain[size - 1].forch_right = alain[0].forch_left;
