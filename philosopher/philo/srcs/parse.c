@@ -69,6 +69,8 @@ bool	init_lst_philos(t_sophe **weil, int size, t_mini_data *yp)
 				return (true);
 			pthread_mutex_init(alain[i].forch_right, NULL);
 		}
+	pthread_mutex_init(&(alain[0].loop_mtx), NULL);
+	pthread_mutex_init(&(alain[0].last_eat_mtx), NULL);
 	}
 	alain[size - 1].forch_right = alain[0].forch_left;
 	return (false);
@@ -95,6 +97,7 @@ int parser(int argc, char **argv, t_data_philo *data)
 	*data = (t_data_philo){.size = tb[0], .mini_data = {.die = tb[1],
 		.eat = tb[2], .sleep = tb[3], .is_end = false}, .loop = (int)tb[4]};
 	platons = malloc(sizeof(t_sophe) * data->size);
+	pthread_mutex_init(&(data->mini_data.is_end_mtx), NULL);
 	pthread_mutex_init(&(data->mini_data.speak_right), NULL);
 	if (!platons || init_lst_philos(&platons, data->size, &(data->mini_data)))
 		return (1);

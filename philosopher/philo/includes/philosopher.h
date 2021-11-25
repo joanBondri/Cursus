@@ -17,6 +17,7 @@ typedef struct	s_mini_data
 	long			sleep;
 	long			eat;
 	long			die;
+	pthread_mutex_t	is_end_mtx;
 	bool			is_end;
 	long			start;
 	pthread_mutex_t	speak_right;
@@ -25,7 +26,9 @@ typedef struct	s_mini_data
 typedef struct	s_sophe
 {
 	int				id;
+	pthread_mutex_t	loop_mtx;
 	int				loop;
+	pthread_mutex_t	last_eat_mtx;
 	long			last_eat;
 	pthread_t		*th;
 	t_mini_data		*mini_data;
@@ -36,7 +39,7 @@ typedef struct	s_sophe
 typedef struct	s_data_philo
 {
 	t_sophe			*one_death;
-	int				size;
+	int				size;	
 	int				loop;
 	t_mini_data		mini_data;
 	t_sophe			*tb;
@@ -49,7 +52,7 @@ typedef struct	s_data_and_philo
 }				t_data_and_philo;
 
 int parser(int argc, char **argv, t_data_philo *data);
-void	print_txt(long time, int id, char *str, pthread_mutex_t *mtx);
+void	print_txt(long time, int id, char *str, t_sophe *guy);
 long	get_time_mili(void);
 int		algo(t_data_philo *data);
 
