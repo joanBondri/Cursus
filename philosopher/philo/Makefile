@@ -14,7 +14,7 @@ NAME = philo
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g3 -I./includes/
+CFLAGS = -Wall -Wextra -Werror -I./includes/
 
 CFLAGS2 = -lpthread
 
@@ -24,7 +24,7 @@ RM = rm -rf
 	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME)  -fsanitize=thread -g3 $(OBJS) $(CFLAGS2)
+	$(CC) -o $(NAME)  $(OBJS) $(CFLAGS2)
 
 all: $(NAME)
 

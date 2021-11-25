@@ -43,9 +43,9 @@ bool	get_is_end(t_mini_data *dt)
 {
 	bool	yop;
 
-	pthread_mutex_lock(&(dt->is_end_mtx));
+	//pthread_mutex_lock(&(dt->is_end_mtx));
 	yop = dt->is_end;
-	pthread_mutex_unlock(&(dt->is_end_mtx));
+	//pthread_mutex_unlock(&(dt->is_end_mtx));
 	return (yop);
 }
 
@@ -106,7 +106,7 @@ void	ft_usleep(int sleep)
 	current = now;
 	while (now + sleep > current)
 	{
-		usleep(100);
+		usleep(50);
 		current = get_time_mili();
 	}
 }
@@ -121,6 +121,7 @@ int		sleep_and_check(int sleep, t_sophe *marx, char *str, int know)
 		return (1);
 	if (know == EAT)
 	{
+		//datarace dans race dans last eat
 		marx->last_eat = get_time_mili();
 		set_loop(marx);
 	}
@@ -161,7 +162,10 @@ void	print_txt(long time, int id, char *str, t_sophe *guy)
 {
 	pthread_mutex_lock(&(guy->mini_data->speak_right));
 	if (get_is_end(guy->mini_data))
+	{
+		pthread_mutex_unlock(&(guy->mini_data->speak_right));
 		return ;
+	}
 	printf("%li ms %i %s\n", time, id, str);
 	pthread_mutex_unlock(&(guy->mini_data->speak_right));
 }
@@ -178,18 +182,17 @@ void	*routine_th(void *data)
 			return (NULL);
 		take_forch(kant, kant->id);
 		take_forch(kant, kant->id + 1);
+
 		if (get_is_end(kant->mini_data))
 			return (NULL);
 		now = get_time_mili();
 		if (sleep_and_check(kant->mini_data->eat, kant, RED"is eating"RESET, EAT))
 			return (NULL);
-		kant->last_eat = now;
 		pthread_mutex_unlock(kant->forch_left);
 		pthread_mutex_unlock(kant->forch_right);
 		if (sleep_and_check(kant->mini_data->sleep, kant, BLU"is sleeping"RESET, 0))
 			return (NULL);
-		if (sleep_and_check(0, kant, MAG"is thinking"RESET, 0))
-			return (NULL);
+		print_txt(get_time_mili_prog(kant->mini_data->start), kant->id, "is thinking", kant);
 	}
 	return (NULL);
 }
