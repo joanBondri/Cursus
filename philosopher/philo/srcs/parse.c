@@ -69,8 +69,8 @@ bool	init_lst_philos(t_sophe **weil, int size, t_mini_data *yp)
 				return (true);
 			pthread_mutex_init(alain[i].forch_right, NULL);
 		}
-	pthread_mutex_init(&(alain[0].loop_mtx), NULL);
-	pthread_mutex_init(&(alain[0].last_eat_mtx), NULL);
+		pthread_mutex_init(&(alain[i].loop_mtx), NULL);
+		pthread_mutex_init(&(alain[i].last_eat_mtx), NULL);
 	}
 	alain[size - 1].forch_right = alain[0].forch_left;
 	return (false);

@@ -11,6 +11,8 @@
 # include <limits.h>
 # include <unistd.h>
 # define EAT 5
+# define ONE 1
+# define FULL 2
 
 typedef struct	s_mini_data
 {

@@ -126,10 +126,7 @@ int		sleep_and_check(int sleep, t_sophe *marx, char *str, int know)
 		return (1);
 	if (know == EAT)
 	{
-		//datarace dans race dans last eat
 		set_last_eat(marx, get_time_mili());
-
-		//marx->last_eat = get_time_mili();
 		set_loop(marx);
 	}
 	time = sleep / 5;
@@ -147,22 +144,36 @@ int		sleep_and_check(int sleep, t_sophe *marx, char *str, int know)
 	return (0);
 }
 
-void	take_forch(t_sophe *arendt, int id)
+bool	take_forch(t_sophe *arendt, int id, int msg)
 {
 	if (get_is_end(arendt->mini_data))
-		return ;
+		return (false);
+	while (arendt->forch_left == arendt->forch_right)
+	{
+		if (get_is_end(arendt->mini_data))
+			return (true);
+		usleep(10);
+	}
 	if (id % 2)
 		pthread_mutex_lock(arendt->forch_left);
 	else
 		pthread_mutex_lock(arendt->forch_right);
 	if (get_is_end(arendt->mini_data))
 	{
-		pthread_mutex_unlock(arendt->forch_right);
-		pthread_mutex_unlock(arendt->forch_left);
-		return ;
+		if (msg == ONE && id % 2)
+			pthread_mutex_unlock(arendt->forch_left);
+		else if (msg == ONE && id % 2 == 0)
+			pthread_mutex_unlock(arendt->forch_right);
+		else
+		{
+			pthread_mutex_unlock(arendt->forch_right);
+			pthread_mutex_unlock(arendt->forch_left);
+		}
+		return (true);
 	}
 	print_txt(get_time_mili_prog(arendt->mini_data->start), arendt->id,
 			CYN"has taken a forck"RESET, arendt);
+	return (false);
 }
 
 void	print_txt(long time, int id, char *str, t_sophe *guy)
@@ -177,23 +188,35 @@ void	print_txt(long time, int id, char *str, t_sophe *guy)
 	pthread_mutex_unlock(&(guy->mini_data->speak_right));
 }
 
+void	unlock_all(t_sophe *freud)
+{
+	pthread_mutex_unlock(freud->forch_left);
+	pthread_mutex_unlock(freud->forch_right);
+}
+
 void	*routine_th(void *data)
 {
 	t_sophe		*kant;
-	long		now;
 
 	kant = (t_sophe*)data;
 	while (true)
 	{
 		if (get_is_end(kant->mini_data))
 			return (NULL);
-		take_forch(kant, kant->id);
-		take_forch(kant, kant->id + 1);
+		if (take_forch(kant, kant->id, ONE))
+			return (NULL);
+		if (take_forch(kant, kant->id + 1, FULL))
+			return (NULL);
 		if (get_is_end(kant->mini_data))
+		{
+			unlock_all(kant);
 			return (NULL);
-		now = get_time_mili();
+		}
 		if (sleep_and_check(kant->mini_data->eat, kant, RED"is eating"RESET, EAT))
+		{
+			unlock_all(kant);
 			return (NULL);
+		}
 		pthread_mutex_unlock(kant->forch_left);
 		pthread_mutex_unlock(kant->forch_right);
 		if (sleep_and_check(kant->mini_data->sleep, kant, BLU"is sleeping"RESET, 0))
@@ -218,13 +241,11 @@ void	*narrator(void *data)
 	while (true)
 	{
 		yop = check_death(camus);
-		//printf("boolean : %i\n", yop);
 		if (yop)
 		{
 			set_is_end(&(camus->mini_data), yop);
 			pthread_mutex_lock(&(camus->mini_data.speak_right));
 			pthread_mutex_unlock(&(camus->mini_data.speak_right));
-			unlock_all_forch(camus->size, (camus->tb));
 			return (NULL);
 		}
 	}
