@@ -1,6 +1,6 @@
 #include "philosopher.h"
 
-bool	get_last_eat(t_sophe *dt)
+long	get_last_eat(t_sophe *dt)
 {
 	long	yop;
 
@@ -10,7 +10,7 @@ bool	get_last_eat(t_sophe *dt)
 	return (yop);
 }
 
-bool	set_last_eat(t_sophe *dt, long yop)
+long	set_last_eat(t_sophe *dt, long yop)
 {
 	pthread_mutex_lock(&(dt->last_eat_mtx));
 	dt->last_eat = yop;
@@ -18,7 +18,7 @@ bool	set_last_eat(t_sophe *dt, long yop)
 	return (yop);
 }
 
-bool	get_loop(t_sophe *dt)
+long	get_loop(t_sophe *dt)
 {
 	int		response;
 
@@ -28,7 +28,7 @@ bool	get_loop(t_sophe *dt)
 	return (response);
 }
 
-bool	set_loop(t_sophe *dt)
+long	set_loop(t_sophe *dt)
 {
 	int		response;
 
@@ -43,9 +43,9 @@ bool	get_is_end(t_mini_data *dt)
 {
 	bool	yop;
 
-	//pthread_mutex_lock(&(dt->is_end_mtx));
+	pthread_mutex_lock(&(dt->is_end_mtx));
 	yop = dt->is_end;
-	//pthread_mutex_unlock(&(dt->is_end_mtx));
+	pthread_mutex_unlock(&(dt->is_end_mtx));
 	return (yop);
 }
 
@@ -72,7 +72,10 @@ bool	check_death(t_data_philo *data)
 	long		now;
 
 	if (data->one_death)
+	{
+		//printf("loooon as youi reck\n");
 		return (true);
+	}
 	now = get_time_mili();
 	hume = (data->tb);
 	size = data->size;
@@ -80,6 +83,7 @@ bool	check_death(t_data_philo *data)
 	{
 		if (now - get_last_eat(hume + size) > data->mini_data.die)
 		{
+			//printf("loooon as youi reck lasteat : %li \n", get_last_eat(hume + size));
 			data->one_death = hume + size;
 			return (true);
 		}
@@ -92,6 +96,7 @@ bool	check_death(t_data_philo *data)
 			if (get_loop(hume + size) < data->loop)
 				return (false);
 		}
+		//printf("je suis un printf yop \n");
 		return (true);
 	}
 	return (false);
@@ -122,7 +127,9 @@ int		sleep_and_check(int sleep, t_sophe *marx, char *str, int know)
 	if (know == EAT)
 	{
 		//datarace dans race dans last eat
-		marx->last_eat = get_time_mili();
+		set_last_eat(marx, get_time_mili());
+
+		//marx->last_eat = get_time_mili();
 		set_loop(marx);
 	}
 	time = sleep / 5;
@@ -182,7 +189,6 @@ void	*routine_th(void *data)
 			return (NULL);
 		take_forch(kant, kant->id);
 		take_forch(kant, kant->id + 1);
-
 		if (get_is_end(kant->mini_data))
 			return (NULL);
 		now = get_time_mili();
@@ -211,9 +217,11 @@ void	*narrator(void *data)
 	camus = (t_data_philo*)data;
 	while (true)
 	{
-		yop = set_is_end(&(camus->mini_data), check_death(camus));
+		yop = check_death(camus);
+		//printf("boolean : %i\n", yop);
 		if (yop)
 		{
+			set_is_end(&(camus->mini_data), yop);
 			pthread_mutex_lock(&(camus->mini_data.speak_right));
 			pthread_mutex_unlock(&(camus->mini_data.speak_right));
 			unlock_all_forch(camus->size, (camus->tb));
