@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/03 13:41:02 by jbondri           #+#    #+#             */
+/*   Updated: 2021/12/03 14:26:49 by jbondri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosopher.h"
 
 void	print_error(void)
@@ -10,12 +22,12 @@ int	main(int argc, char **argv)
 	t_data_philo	*data;
 
 	data = malloc(sizeof(t_data_philo) * 1);
-	if (!data)
+	if (!data || (argc != 5 && argc != 6))
 	{
 		print_error();
 		return (0);
 	}
-	if (parser(argc, argv, data))
+	if (parser(argv, data))
 	{
 		free(data);
 		print_error();
@@ -29,5 +41,5 @@ int	main(int argc, char **argv)
 	}
 	free(data->tb);
 	free(data);
-	return (0);	
+	return (0);
 }

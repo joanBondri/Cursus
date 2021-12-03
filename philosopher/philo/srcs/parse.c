@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/03 13:41:17 by jbondri           #+#    #+#             */
+/*   Updated: 2021/12/03 14:45:40 by jbondri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosopher.h"
 
 long	ft_atoi_long(char *str)
@@ -30,12 +42,26 @@ bool	is_only_digit(char *str)
 	return (true);
 }
 
-long	get_time_mili(void)
+bool	assign_philo(t_sophe *derida, int i, int size, long now)
 {
-	struct timeval current_time;
-	
-	gettimeofday(&current_time, NULL);	
-	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+	derida[i].loop = 0;
+	derida[i].id = i + 1;
+	derida[i].th = malloc(sizeof(pthread_t) * 1);
+	if (!derida[i].th)
+		return (true);
+	derida[i].last_eat = now;
+	if (i != 0)
+		derida[i].forch_left = derida[i - 1].forch_right;
+	if (i != size - 1)
+	{
+		derida[i].forch_right = malloc(sizeof(pthread_mutex_t) * 1);
+		if (!derida[i].forch_right)
+			return (true);
+		pthread_mutex_init(derida[i].forch_right, NULL);
+	}
+	pthread_mutex_init(&(derida[i].loop_mtx), NULL);
+	pthread_mutex_init(&(derida[i].last_eat_mtx), NULL);
+	return (false);
 }
 
 bool	init_lst_philos(t_sophe **weil, int size, t_mini_data *yp)
@@ -43,7 +69,7 @@ bool	init_lst_philos(t_sophe **weil, int size, t_mini_data *yp)
 	int			i;
 	t_sophe		*alain;
 	long		now;
-	
+
 	alain = *weil;
 	i = -1;
 	now = get_time_mili();
@@ -53,38 +79,21 @@ bool	init_lst_philos(t_sophe **weil, int size, t_mini_data *yp)
 	pthread_mutex_init(alain[0].forch_left, NULL);
 	while (++i < size)
 	{
-		alain[i].loop = 0;
-		alain[i].id = i + 1;
 		alain[i].mini_data = yp;
-		alain[i].th = malloc(sizeof(pthread_t) * 1);
-		if (!alain[i].th)
+		if (assign_philo(alain, i, size, now))
 			return (true);
-		alain[i].last_eat = now;
-		if (i != 0)
-			alain[i].forch_left = alain[i - 1].forch_right;
-		if (i != size - 1)
-		{
-			alain[i].forch_right = malloc(sizeof(pthread_mutex_t) * 1);
-			if (!alain[i].forch_right)
-				return (true);
-			pthread_mutex_init(alain[i].forch_right, NULL);
-		}
-		pthread_mutex_init(&(alain[i].loop_mtx), NULL);
-		pthread_mutex_init(&(alain[i].last_eat_mtx), NULL);
 	}
 	alain[size - 1].forch_right = alain[0].forch_left;
 	return (false);
 }
 
-int parser(int argc, char **argv, t_data_philo *data)
+int	parser(char **argv, t_data_philo *data)
 {
 	int				i;
 	long			res;
 	static long		tb[5] = {};
 	t_sophe			*platons;
 
-	if (argc != 5 && argc != 6)
-		return (1);
 	i = 0;
 	tb[4] = -1;
 	while (argv[++i])

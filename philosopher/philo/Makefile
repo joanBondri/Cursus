@@ -1,6 +1,10 @@
 SRC = main.c \
 	  parse.c \
-	  algo_func.c \
+	  algo.c \
+	  getter.c \
+	  setter.c \
+	  routines.c \
+	  routines_utils.c \
 
 SRCSDIR = ./srcs
 
