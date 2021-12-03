@@ -13,7 +13,7 @@ NAME = fractol
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I./ -I ./libft/
+CFLAGS = -Wall -Wextra -Werror -I./ -I ./libft/ -I./minilibx/
 CFLAGS2 = -I./minilibx -I/usr/include -I ./ -lXext -lX11 -lbsd -L./minilibx -lm -lmlx ./libft/libft.a
 RM = rm -rf
 
