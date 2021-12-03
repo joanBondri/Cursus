@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:41:36 by jbondri           #+#    #+#             */
-/*   Updated: 2021/12/03 14:48:58 by jbondri          ###   ########.fr       */
+/*   Updated: 2021/12/03 15:02:32 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool	more_and_more_philosopher(t_sophe *kant)
 {
+	print_txt(get_time_mili_prog(kant->mini_data->start),
+		kant->id, "is thinking", kant);
 	if (get_is_end(kant->mini_data))
 		return (true);
 	if (take_forch(kant, kant->id, ONE))
@@ -36,8 +38,6 @@ bool	more_and_more_philosopher(t_sophe *kant)
 	if (sleep_and_check(kant->mini_data->sleep,
 			kant, BLU"is sleeping"RESET, 0))
 		return (true);
-	print_txt(get_time_mili_prog(kant->mini_data->start),
-		kant->id, "is thinking", kant);
 	return (false);
 }
 
